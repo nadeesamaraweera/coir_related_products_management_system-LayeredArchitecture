@@ -13,8 +13,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import lk.ijse.coir.bo.custom.CustomerBO;
+import lk.ijse.coir.bo.custom.impl.CustomerBOImpl;
 import lk.ijse.coir.dto.CustomerDto;
 import lk.ijse.coir.dto.tm.CustomerTm;
+import lk.ijse.coir.entity.Customer;
 import lk.ijse.coir.model.CustomerModel;
 
 import java.io.IOException;
@@ -53,6 +56,8 @@ public class CustomerFormController {
         @FXML
         private TextField txtTel;
 
+        CustomerBO customerBO = new CustomerBOImpl();
+
         public void initialize() {
             setCellValueFactory();
             loadAllCustomers();
@@ -71,9 +76,9 @@ public class CustomerFormController {
             ObservableList<CustomerTm> obList = FXCollections.observableArrayList();
 
             try {
-                List<CustomerDto> dtoList = model.getAllCustomers();
+                List<Customer> dtoList = customerBO.getAllCustomers();
 
-                for (CustomerDto dto : dtoList) {
+                for (Customer dto : dtoList) {
                     obList.add(
                             new CustomerTm(
                                     dto.getCustomerId(),
@@ -86,6 +91,8 @@ public class CustomerFormController {
 
                 tblCustomer.setItems(obList);
             } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
         }
@@ -174,8 +181,8 @@ public class CustomerFormController {
 
 
            @FXML
-        void btnUpdateOnAction(ActionEvent event) {
-            String customerId = txtId.getText();
+        void btnUpdateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+           /* String customerId = txtId.getText();
             String customerName = txtName.getText();
             String address = txtAddress.getText();
             String tel = txtTel.getText();
@@ -192,8 +199,14 @@ public class CustomerFormController {
                 }
             } catch (SQLException e) {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-            }
-        }
+            }*/
+               CustomerDto customerDto = new CustomerDto(txtId.getText(), txtName.getText(), txtAddress.getText(), txtTel.getText());
+               boolean isupdate = customerBO.update(customerDto);
+               if (isupdate) {
+                   new Alert(Alert.AlertType.CONFIRMATION, "customer updated!").show();
+                   initialize();
+               }
+           }
 
         @FXML
         void txtSearchOnAction(ActionEvent event) {

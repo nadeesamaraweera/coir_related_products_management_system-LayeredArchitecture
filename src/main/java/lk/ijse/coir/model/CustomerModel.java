@@ -11,7 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerModel {
-    public boolean saveCustomer(final CustomerDto dto) throws SQLException {;
+    public boolean saveCustomer(final CustomerDto dto) throws SQLException {
+        ;
         Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "INSERT INTO customer VALUES(?, ?, ?, ?)";
@@ -52,7 +53,7 @@ public class CustomerModel {
 
         CustomerDto dto = null;
 
-        if(resultSet.next()) {
+        if (resultSet.next()) {
             String cus_id = resultSet.getString(1);
             String cus_name = resultSet.getString(2);
             String cus_address = resultSet.getString(3);
@@ -64,8 +65,8 @@ public class CustomerModel {
         return dto;
     }
 
-    public List<CustomerDto> getAllCustomers() throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
+    //public List<CustomerDto> getAllCustomers() throws SQLException {
+        /*Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "SELECT * FROM customer";
         PreparedStatement pstm = connection.prepareStatement(sql);
@@ -83,8 +84,9 @@ public class CustomerModel {
             var dto = new CustomerDto(cus_id, cus_name, cus_address, cus_tel);
             dtoList.add(dto);
         }
-        return dtoList;
-    }
+        return dtoList;*/
+   // }
+
 
     public boolean deleteCustomer(String customerId) throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
