@@ -1,0 +1,35 @@
+/* Style for the entire TableView */
+.table-view {
+    -fx-background-color: #fecd7a; /* Set the background color */
+}
+
+/* Style for the table header */
+.table-view .column-header-background {
+    -fx-background-color: #684407; /* Set the background color of the header */
+}
+
+/* Style for the table header text */
+.table-view .column-header {
+    -fx-text-fill: #221d1d; /* Set the text color of the header */
+}
+
+/* Style for the table rows */
+.table-row-cell {
+    -fx-background-color: #ce6a48; /* Set the background color of the rows */
+}
+
+/* Style for the odd rows */
+.table-row-cell:odd {
+    -fx-background-color: #f0f0f0; /* Set the background color of odd rows */
+}
+
+/* Style for the even rows */
+.table-row-cell:even {
+    -fx-background-color: #e0e0e0; /* Set the background color of even rows */
+}
+
+/* Style for the selected row */
+.table-row-cell:selected {
+    -fx-background-color: #b4aaaa; /* Set the background color of the selected row */
+    -fx-text-fill: #221d1d; /* Set the text color of the selected row */
+}

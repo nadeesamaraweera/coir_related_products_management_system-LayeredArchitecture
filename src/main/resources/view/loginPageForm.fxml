@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="pane" prefHeight="798.0" prefWidth="960.0" style="-fx-background-color: #F9F5F6;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.coir.controller.LoginPageFormController">
+   <children>
+      <ImageView fitHeight="806.0" fitWidth="1198.0" layoutX="-55.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assests/image/overhead-view-woman-making-string-with-jute-string-textured-backdrop.jpg" />
+         </image>
+      </ImageView>
+      <AnchorPane fx:id="Pane" layoutX="53.333333333333336" layoutY="105.0" prefHeight="421.0" prefWidth="396.0" style="-fx-background-color: blur; -fx-border-color: #8d210b; -fx-border-radius: 20;" AnchorPane.leftAnchor="53.333333333333336">
+         <children>
+            <Text layoutX="40.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login">
+               <font>
+                  <Font name="System Bold" size="30.0" />
+               </font>
+            </Text>
+            <TextField fx:id="txtusername" layoutX="41.0" layoutY="213.0" prefHeight="35.0" prefWidth="308.0" promptText="username" styleClass="text-prompt" stylesheets="@../style/style.css" />
+            <JFXButton layoutX="120.0" layoutY="348.0" onAction="#btnLoginOnAction" prefHeight="32.0" prefWidth="154.0" style="-fx-background-color: #b73e25;" styleClass="btn" stylesheets="@../style/style.css" text="LOGIN" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </JFXButton>
+            <Hyperlink layoutX="10.0" layoutY="391.0" onAction="#hypforgotpasswordOnAction" text="Forgot Password?" textFill="#3a0e05">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Hyperlink>
+            <ImageView fitHeight="18.0" fitWidth="31.0" layoutX="323.0" layoutY="221.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/icon/icons8-user-30.png" />
+               </image>
+            </ImageView>
+            <PasswordField fx:id="txtpassword" layoutX="42.0" layoutY="265.0" prefHeight="35.0" prefWidth="308.0" promptText="password" styleClass="text-prompt" stylesheets="@../style/style.css" />
+            <ImageView fitHeight="17.0" fitWidth="150.0" layoutX="324.0" layoutY="276.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/icon/icons8-blind-30.png" />
+               </image>
+            </ImageView>
+            <Text fill="#281105" fontSmoothingType="LCD" layoutX="43.0" layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter your Credentials......" wrappingWidth="324.000020345052">
+               <font>
+                  <Font name="FreeSerif" size="14.0" />
+               </font>
+            </Text>
+            <CheckBox layoutX="44.0" layoutY="304.0" mnemonicParsing="false" onAction="#check" prefHeight="18.0" prefWidth="142.0" text="Show Password" textFill="#4c2b0c" />
+            <TextField fx:id="show" layoutX="43.0" layoutY="265.0" prefHeight="35.0" prefWidth="308.0" promptText="password" styleClass="text-prompt" stylesheets="@../style/style.css" />
+            <ImageView fitHeight="17.0" fitWidth="150.0" layoutX="324.0" layoutY="276.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/icon/icons8-eye-60.png" />
+               </image>
+            </ImageView>
+            <ImageView blendMode="MULTIPLY" fitHeight="131.0" fitWidth="214.0" layoutX="86.0" layoutY="-14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/image/ceilan-high-resolution-logo.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

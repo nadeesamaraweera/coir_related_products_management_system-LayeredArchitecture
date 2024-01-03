@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="OtpForm" prefHeight="238.0" prefWidth="413.0" style="-fx-background-color: #d27417;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.coir.controller.OtpFormController">
+   <children>
+      <Text fill="#b5510a" layoutX="21.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Text>
+      <JFXButton fx:id="btnBack" layoutX="320.0" layoutY="200.0" onAction="#btnBackOnAction" prefHeight="30.0" prefWidth="78.0" style="-fx-background-color: #b73e25;" styleClass="btn" stylesheets="@../style/style.css" text="Back" />
+      <AnchorPane fx:id="OtpForm" layoutX="196.0" layoutY="22.0" prefHeight="161.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 20;">
+         <children>
+            <Text fill="#d27417" layoutX="43.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter OTP Code" wrappingWidth="117.3333740234375">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Text>
+            <TextField fx:id="txtOtp" layoutX="31.0" layoutY="57.0" prefHeight="15.0" prefWidth="145.0" style="-fx-border-color: #b73e25;" />
+            <JFXButton fx:id="btnVerify" layoutX="58.0" layoutY="105.0" onAction="#btnVerifyOnAction" prefHeight="21.0" prefWidth="91.0" style="-fx-background-color: #d27417;" styleClass="btn" stylesheets="@../style/style.css" text="Verify" textFill="#fdfdfd" />
+            <ImageView fitHeight="21.0" fitWidth="49.0" layoutX="87.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/icon/icons8-protect-100.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <Text fill="WHITE" layoutX="41.0" layoutY="99.0" lineSpacing="5.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OTP Verification" wrappingWidth="127.99996693929052">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </Text>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="123.0" layoutX="10.0" layoutY="44.0" stroke="WHITE" strokeType="INSIDE" width="10.0" />
+   </children>
+</AnchorPane>

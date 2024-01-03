@@ -1,0 +1,40 @@
+.lablebtn{
+    -fx-border-color: #000000;
+    -fx-border-radius: 50;
+    -fx-background-radius: 50;
+    -fx-text-alignment: Center;
+    -fx-font-style: bold;
+}
+.lablebtn:hover{
+    -fx-background-color: #b0b6b6;
+    -fx-text-fill: #000000
+}
+.btn {
+    -fx-background-color: #eb5827;
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+    -fx-font-size:17;
+    -fx-cursor: hand;
+    -fx-font-weight: 600;
+    -fx-text-fill: #ffffff;
+    -fx-font-style: bold;
+
+}
+
+.btn:hover {
+    -fx-background-color: #921313;
+    -fx-border-color: #921313;
+    -fx-text-fill: #e7e0dc;
+}
+.text-prompt{
+
+    -fx-font-size: 14;
+    -fx-text-fill: #515252;
+    -fx-background-color: #ffffff;
+}
+.productPane {
+    -fx-background-radius: 50;
+    -fx-border-radius: 50;
+    -fx-border-color: #474949;
+    -fx-background-color: #FEEDF4;
+}

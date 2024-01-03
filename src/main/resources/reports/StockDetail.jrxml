@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.2.0.final using JasperReports Library version 6.2.0  -->
+<!-- 2023-11-27T21:44:50 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="StockDetail" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="48563962-a2ee-40dd-9858-02e8415ba1d2">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter (7)"/>
+	<queryString>
+		<![CDATA[select r.rawMaterial_id,
+              r.material_name,
+              r.unit_price,
+              sd.supplier_id,
+              sd.qty_on_stock,
+              sd.qty_on_stock * sd.unit_price AS payments,
+              date
+              FROM  raw_material  r
+              join supplier_detail sd on r.rawMaterial_id=sd.rawMaterial_id  ]]>
+	</queryString>
+	<field name="material_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="rawMaterial_id" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="unit_price" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="supplier_id" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qty_on_stock" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="payments" class="java.lang.Double"/>
+	<field name="date" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="189" y="51" width="349" height="28" uuid="fe0b00df-c036-46b3-a5e3-9f8c078fda6f"/>
+				<textElement>
+					<font fontName="Century Schoolbook L" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Stock Detail Report]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="-18" y="29" width="100" height="30" uuid="0a087970-b7a5-49ba-8d54-205040915aa2"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[supplier_id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="56" y="29" width="94" height="30" uuid="c345513d-6b58-494f-9ace-b04752831fe7"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[rawMaterial_id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="162" y="29" width="100" height="30" uuid="d41765d0-a2fe-4d97-90ae-c48bd7535515"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[material_name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="259" y="29" width="100" height="30" uuid="70931cdc-6e62-49d5-8fa3-eba4432f3893"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[unit_price]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="331" y="29" width="100" height="30" uuid="a28b9cac-2006-4d11-8b41-3bf7706ed885"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[qty_on_stock]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="486" y="30" width="100" height="30" uuid="7aa50747-27f2-40bd-99f2-8e8963af6c2e"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="418" y="29" width="100" height="30" uuid="5d8f8154-fff4-483d-90c3-5f9b6070526c"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[payments]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="-18" y="3" width="100" height="30" uuid="d5a78a00-e6f3-41ac-9bc7-5a05692493c3"/>
+				<textFieldExpression><![CDATA[$F{supplier_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="58" y="2" width="100" height="30" uuid="15bf5956-3db5-42a8-a676-3e8f76c50f5c"/>
+				<textFieldExpression><![CDATA[$F{rawMaterial_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="166" y="2" width="100" height="30" uuid="d545d5bf-3a5e-48c6-a086-6eccb941c409"/>
+				<textFieldExpression><![CDATA[$F{material_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="266" y="1" width="100" height="30" uuid="31ac7f03-0a14-409d-afce-3ecb16346046"/>
+				<textFieldExpression><![CDATA[$F{unit_price}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="335" y="1" width="100" height="30" uuid="1abc9269-9bf8-4688-bfcc-cd46673c7b87"/>
+				<textFieldExpression><![CDATA[$F{qty_on_stock}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="482" y="1" width="100" height="30" uuid="923053fe-cfbd-4c93-b8a4-2427f31d7b3f"/>
+				<textFieldExpression><![CDATA[$F{date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="1" width="100" height="30" uuid="ba466021-c56b-4b1d-b838-9c1af5feecd3"/>
+				<textFieldExpression><![CDATA[$F{payments}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

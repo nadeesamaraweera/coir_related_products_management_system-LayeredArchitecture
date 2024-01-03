@@ -1,0 +1,41 @@
+font{
+    -fx-font-family: "Noto Sans";
+
+}
+.textBox{
+    -fx-font-size: 10;
+    -fx-border-radius: 40;
+    -fx-background-radius: 40;
+
+}
+.loginbtn{
+    -fx-background-radius: 50;
+    -fx-border-radius: 50;
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #ffffff;
+}
+.loginbtn:hover{
+    -fx-background-color: #221d1d;
+    -fx-text-fill: #ffffff;
+}
+
+.fontdash{
+    -fx-font-family: "Lucida Sans Unicode";
+}
+.btn {
+    -fx-background-color: transparent;
+    -fx-font-style: Bold;
+    -fx-border-color: #eb5827;
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+    -fx-font-size: 18;
+    -fx-pref-width: 169;
+    -fx-pref-height: 5;
+    -fx-alignment: center;
+}
+
+.btn:hover {
+    -fx-background-color: #eb5827;
+    -fx-border-color: transparent;
+    -fx-text-fill: #b4aaaa;
+}

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="root" blendMode="MULTIPLY" prefHeight="806.0" prefWidth="1459.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.coir.controller.EmployeeFormController">
+   <children>
+      <Label layoutX="4.0" layoutY="2.0" text="Employee Manage" textFill="#744717">
+         <font>
+            <Font name="System Bold" size="28.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtId" layoutX="35.0" layoutY="74.0" onAction="#txtSearchOnAction" prefHeight="33.0" prefWidth="230.0" style="-fx-border-color: black;" />
+      <JFXButton buttonType="RAISED" contentDisplay="RIGHT" layoutX="589.0" layoutY="4.0" onAction="#btnSaveOnAction" prefHeight="33.0" prefWidth="106.0" style="-fx-background-color: blue;" styleClass="btn" stylesheets="@../style/style.css" text="Save" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" contentDisplay="RIGHT" layoutX="683.0" layoutY="42.0" onAction="#btnUpdateOnAction" prefHeight="33.0" prefWidth="106.0" style="-fx-background-color: darkOrange;" styleClass="btn" stylesheets="@../style/style.css" text="Update" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" contentDisplay="RIGHT" layoutX="593.0" layoutY="87.0" onAction="#btnDeleteOnAction" prefHeight="33.0" prefWidth="106.0" style="-fx-background-color: red;" styleClass="btn" stylesheets="@../style/style.css" text="Delete" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" contentDisplay="RIGHT" layoutX="706.0" layoutY="123.0" onAction="#btnClearOnAction" prefHeight="33.0" prefWidth="106.0" style="-fx-background-color: gray;" styleClass="btn" stylesheets="@../style/style.css" text="Clear" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" layoutX="1125.0" layoutY="724.0" onAction="#btnBackOnAction" prefHeight="34.0" prefWidth="89.0" style="-fx-background-color: brown;" styleClass="btn" stylesheets="@../style/style.css" text="Back" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <TextField fx:id="txtName" layoutX="305.0" layoutY="74.0" prefHeight="33.0" prefWidth="230.0" style="-fx-border-color: black;" />
+      <TextField fx:id="txtTel" layoutX="37.0" layoutY="139.0" prefHeight="33.0" prefWidth="230.0" style="-fx-border-color: black;" />
+      <TableView fx:id="tblEmployee" layoutX="38.0" layoutY="251.0" prefHeight="510.0" prefWidth="874.0" style="-fx-border-color: black;">
+         <columns>
+            <TableColumn fx:id="colId" prefWidth="98.66668701171875" text="Employee Id" />
+            <TableColumn fx:id="colName" minWidth="1.99993896484375" prefWidth="128.6666259765625" text="Employee Name" />
+            <TableColumn fx:id="colEmail" minWidth="0.666748046875" prefWidth="190.0" text="Email" />
+            <TableColumn fx:id="colJob" minWidth="0.0" prefWidth="111.20004272460938" text="Job Title" />
+            <TableColumn fx:id="colTel" prefWidth="118.39990234375" text="Tel" />
+            <TableColumn fx:id="colSalary" prefWidth="113.86663818359375" text="Salary" />
+            <TableColumn fx:id="colDate" prefWidth="111.73345947265625" text="Date" />
+         </columns>
+      </TableView>
+      <Label layoutX="36.0" layoutY="48.0" text="Employee Id*" textFill="#363232">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="305.0" layoutY="49.0" text="Employee Name*" textFill="#363232">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtEmail" layoutX="582.0" layoutY="204.0" prefHeight="33.0" prefWidth="230.0" style="-fx-border-color: black;" />
+      <TextField fx:id="txtjOB" layoutX="308.0" layoutY="140.0" prefHeight="33.0" prefWidth="230.0" style="-fx-border-color: black;" />
+      <Label layoutX="581.0" layoutY="178.0" text="Email*" textFill="#363232">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="309.0" layoutY="116.0" text="Job Title*" textFill="#363232">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="37.0" layoutY="113.0" text="Tel*" textFill="#363232">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtSalary" layoutX="309.0" layoutY="203.0" prefHeight="33.0" prefWidth="230.0" style="-fx-border-color: black;" />
+      <Label layoutX="309.0" layoutY="177.0" text="Salary*" textFill="#363232">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtDate" layoutX="39.0" layoutY="202.0" prefHeight="33.0" prefWidth="230.0" style="-fx-border-color: black;" />
+      <Label layoutX="38.0" layoutY="175.0" text="Date*" textFill="#363232">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="17.0" fitWidth="1.0" layoutX="876.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true">
+      </ImageView>
+   </children>
+</AnchorPane>

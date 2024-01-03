@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="root" blendMode="MULTIPLY" prefHeight="806.0" prefWidth="1459.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.coir.controller.RawMaterialFormController">
+   <children>
+      <Label layoutX="15.0" layoutY="1.0" text="Raw Material  Manage" textFill="#744717">
+         <font>
+            <Font name="System Bold" size="28.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtId" layoutX="32.0" layoutY="87.0" onAction="#txtSearchOnAction" prefHeight="33.0" prefWidth="230.0" style="-fx-border-color: black;" />
+      <TextField fx:id="txtQty" layoutX="32.0" layoutY="169.0" prefHeight="33.0" prefWidth="230.0" style="-fx-border-color: black;" />
+      <JFXButton buttonType="RAISED" contentDisplay="RIGHT" layoutX="612.0" layoutY="8.0" onAction="#btnSaveOnAction" prefHeight="33.0" prefWidth="106.0" style="-fx-background-color: blue;" styleClass="btn" stylesheets="@../style/style.css" text="Save" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" contentDisplay="RIGHT" layoutX="701.0" layoutY="54.0" onAction="#btnUpdateOnAction" prefHeight="33.0" prefWidth="106.0" style="-fx-background-color: darkorange;" styleClass="btn" stylesheets="@../style/style.css" text="Update" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" contentDisplay="RIGHT" layoutX="615.0" layoutY="100.0" onAction="#btnDeleteOnAction" prefHeight="33.0" prefWidth="106.0" style="-fx-background-color: red;" styleClass="btn" stylesheets="@../style/style.css" text="Delete" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" contentDisplay="RIGHT" layoutX="708.0" layoutY="144.0" onAction="#btnClearOnAction" prefHeight="33.0" prefWidth="106.0" style="-fx-background-color: gray;" styleClass="btn" stylesheets="@../style/style.css" text="Clear" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" layoutX="1149.0" layoutY="717.0" onAction="#btnBackOnAction" prefHeight="34.0" prefWidth="89.0" style="-fx-background-color: brown;" styleClass="btn" stylesheets="@../style/style.css" text="Back" textFill="#d4cbcb">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <TextField fx:id="txtName" layoutX="315.0" layoutY="88.0" prefHeight="33.0" prefWidth="230.0" style="-fx-border-color: black;" />
+      <TableView fx:id="tblRaw" layoutX="33.0" layoutY="244.0" prefHeight="510.0" prefWidth="815.0" style="-fx-border-color: black;">
+         <columns>
+            <TableColumn fx:id="colId" prefWidth="143.33332061767578" text=" Raw Material Id" />
+            <TableColumn fx:id="colName" prefWidth="209.3332977294922" text="Material Name" />
+            <TableColumn fx:id="colQty" minWidth="4.666748046875" prefWidth="263.2000732421875" text="Qty On Stock (g)" />
+            <TableColumn fx:id="colUnitPrice" minWidth="4.666748046875" prefWidth="196.0" text="Unit Price" />
+         </columns>
+      </TableView>
+      <Label layoutX="32.0" layoutY="60.0" text="Raw Material  Id*" textFill="#363232">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="316.0" layoutY="61.0" text="Material Name*" textFill="#363232">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="32.0" layoutY="141.0" text="Qty On Stock*" textFill="#363232">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtUnitprice" layoutX="316.0" layoutY="170.0" prefHeight="33.0" prefWidth="230.0" style="-fx-border-color: black;" />
+      <Label layoutX="316.0" layoutY="143.0" text="Unit Price*" textFill="#363232">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
