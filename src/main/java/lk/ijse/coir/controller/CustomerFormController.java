@@ -98,8 +98,8 @@ public class CustomerFormController {
         }
 
         @FXML
-        void btnSaveOnAction(ActionEvent event) {
-            String customerId = txtId.getText();
+        void btnSaveOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+          /*  String customerId = txtId.getText();
             String customerName = txtName.getText();
             String address = txtAddress.getText();
             String tel = txtTel.getText();
@@ -121,11 +121,16 @@ public class CustomerFormController {
                     }
                 } catch (SQLException e) {
                     new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-                }
-
-
+                }*/
+            CustomerDto customerDto = new CustomerDto(txtId.getText(), txtName.getText(), txtAddress.getText(), txtTel.getText());
+            boolean issave = customerBO.saveCustomer(customerDto);
+            if (issave) {
+                new Alert(Alert.AlertType.CONFIRMATION, "customer saved!").show();
+                initialize();
             }
         }
+
+
 
         private boolean validateCustomer() {
 
@@ -201,7 +206,7 @@ public class CustomerFormController {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }*/
                CustomerDto customerDto = new CustomerDto(txtId.getText(), txtName.getText(), txtAddress.getText(), txtTel.getText());
-               boolean isupdate = customerBO.update(customerDto);
+               boolean isupdate = customerBO.updateCustomer(customerDto);
                if (isupdate) {
                    new Alert(Alert.AlertType.CONFIRMATION, "customer updated!").show();
                    initialize();
@@ -209,10 +214,10 @@ public class CustomerFormController {
            }
 
         @FXML
-        void txtSearchOnAction(ActionEvent event) {
+        void txtSearchOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
             String customerId = txtId.getText();
 
-            var model = new CustomerModel();
+         /* var model = new CustomerModel();
             try {
                 CustomerDto dto = model.searchCustomer(customerId);
 
@@ -223,6 +228,14 @@ public class CustomerFormController {
                 }
             } catch (SQLException e) {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            }*/
+
+            CustomerDto customerDto = new CustomerDto(txtId.getText(),txtName.getText(),txtAddress.getText(),txtTel.getText());
+            CustomerDto  customerDto1= customerBO.searchCustomer(customerId);
+            if (customerDto1!=null) {
+                fillFields(customerDto);
+            } else {
+                new Alert(Alert.AlertType.INFORMATION, "customer not found!").show();
             }
         }
 
@@ -234,8 +247,8 @@ public class CustomerFormController {
         }
 
         @FXML
-        void btnDeleteOnAction(ActionEvent event) {
-            String customerId = txtId.getText();
+        void btnDeleteOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+           /* String customerId = txtId.getText();
 
             var customerModel = new CustomerModel();
             try {
@@ -248,7 +261,15 @@ public class CustomerFormController {
                 }
             } catch (SQLException e) {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            }*/
+            CustomerDto customerDto =new CustomerDto(txtId.getText(),txtName.getText(),txtAddress.getText(),txtTel.getText());
+            boolean isdelete = customerBO.deleteCustomer(customerDto);
+            if (isdelete) {
+                tblCustomer.refresh();
+                new Alert(Alert.AlertType.CONFIRMATION, "customer deleted!").show();
+                initialize();
             }
+
         }
 
         @FXML

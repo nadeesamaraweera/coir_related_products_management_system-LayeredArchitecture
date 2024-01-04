@@ -14,14 +14,38 @@ public class CustomerBOImpl implements CustomerBO {
     CustomerDAO customerDAO = new CustomerDAOImpl();
 
     @Override
-    public boolean update(CustomerDto customerDto) throws SQLException, ClassNotFoundException {
+    public List<Customer> getAllCustomers() throws SQLException, ClassNotFoundException {
+        return customerDAO.getAll();
+    }
+
+    @Override
+    public boolean updateCustomer(CustomerDto customerDto) throws SQLException, ClassNotFoundException {
         return customerDAO.update(new Customer(customerDto.getCustomerId(),customerDto.getCustomerName(),customerDto.getAddress(),customerDto.getTel()));
 
     }
 
     @Override
-    public List<Customer> getAllCustomers() throws SQLException, ClassNotFoundException {
-        return customerDAO.getAll();
+    public boolean saveCustomer(CustomerDto customerDto) throws SQLException, ClassNotFoundException {
+        return customerDAO.save(new Customer(customerDto.getCustomerId(),customerDto.getCustomerName(),customerDto.getAddress(),customerDto.getTel()));
+
     }
+
+    @Override
+    public boolean deleteCustomer(CustomerDto customerDto) throws SQLException, ClassNotFoundException {
+        return customerDAO.delete(new Customer(customerDto.getCustomerId(),customerDto.getCustomerName(),customerDto.getAddress(),customerDto.getTel()));
+
+    }
+
+    @Override
+    public CustomerDto searchCustomer(String customerDto) throws SQLException, ClassNotFoundException {
+        return customerDAO.search(new Customer())
+    }
+
+    public boolean searchCustomer(CustomerDto customerDto) throws SQLException, ClassNotFoundException {
+        return customerDAO.search(new Customer(customerDto.getCustomerId(),customerDto.getCustomerName(),customerDto.getAddress(),customerDto.getTel()));
+
+    }
+
+
 
 }

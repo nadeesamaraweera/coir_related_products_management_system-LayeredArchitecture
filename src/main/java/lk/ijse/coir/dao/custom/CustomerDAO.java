@@ -7,7 +7,16 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface CustomerDAO {
-    boolean update(Customer customer) throws SQLException, ClassNotFoundException;
 
     public List<Customer> getAll() throws SQLException, ClassNotFoundException;
+
+    boolean update(Customer customer) throws SQLException, ClassNotFoundException;
+
+    boolean save(Customer customer) throws SQLException, ClassNotFoundException;
+
+     boolean delete(Customer customer) throws SQLException, ClassNotFoundException;
+
+    boolean search(Customer customer) throws SQLException, ClassNotFoundException;
+
+
 }

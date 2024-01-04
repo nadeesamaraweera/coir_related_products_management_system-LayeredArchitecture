@@ -15,6 +15,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import lk.ijse.coir.bo.custom.CustomerBO;
+import lk.ijse.coir.bo.custom.PlaceOrderBO;
+import lk.ijse.coir.bo.custom.impl.CustomerBOImpl;
+import lk.ijse.coir.bo.custom.impl.PlaceOrderBOImpl;
 import lk.ijse.coir.db.DbConnection;
 import lk.ijse.coir.dto.CustomerDto;
 import lk.ijse.coir.dto.ItemDto;
@@ -92,6 +96,7 @@ public class PlaceOrderFormController {
     private Label lblNetTotal;
 
     private final PlaceOrderModel placeOrderModel = new PlaceOrderModel();
+
 
 
     public void initialize() {
@@ -275,9 +280,9 @@ public class PlaceOrderFormController {
     }
 
     @FXML
-    void cmbCustomerOnAction(ActionEvent event) throws SQLException {
+    void cmbCustomerOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String customerId = cmbCustomerId.getValue();
-        CustomerDto dto = customerModel.searchCustomer(customerId);
+        CustomerDto dto =CustomerModel.searchCustomer(customerId);
 
         lblCustomerName.setText(dto.getCustomerName());
     }

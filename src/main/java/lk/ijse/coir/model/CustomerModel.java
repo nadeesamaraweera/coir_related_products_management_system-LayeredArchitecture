@@ -42,7 +42,7 @@ public class CustomerModel {
         return pstm.executeUpdate() > 0;
     }
 
-    public CustomerDto searchCustomer(String customerId) throws SQLException {
+    public static CustomerDto searchCustomer(String customerId) throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "SELECT * FROM customer WHERE customer_id = ?";
