@@ -1,22 +1,27 @@
 package lk.ijse.coir.dao.custom;
 
+import lk.ijse.coir.dao.CrudDAO;
 import lk.ijse.coir.dto.CustomerDto;
 import lk.ijse.coir.entity.Customer;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public interface CustomerDAO {
+public interface CustomerDAO extends CrudDAO<Customer> {
+    //boolean exist(String id) throws SQLException, ClassNotFoundException;
 
-    public List<Customer> getAll() throws SQLException, ClassNotFoundException;
+    //boolean delete(Customer customer) throws SQLException, ClassNotFoundException;
+
+    /*public List<Customer> getAll() throws SQLException, ClassNotFoundException;
+
+     public List<Customer> loadAll() throws SQLException, ClassNotFoundException;
+
 
     boolean update(Customer customer) throws SQLException, ClassNotFoundException;
 
     boolean save(Customer customer) throws SQLException, ClassNotFoundException;
 
-     boolean delete(Customer customer) throws SQLException, ClassNotFoundException;
-
-    boolean search(Customer customer) throws SQLException, ClassNotFoundException;
+    boolean search(Customer customer) throws SQLException, ClassNotFoundException;*/
 
 
 }
