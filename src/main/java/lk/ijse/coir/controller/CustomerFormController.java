@@ -74,7 +74,7 @@ public class CustomerFormController {
         }
 
         private void loadAllCustomers() {
-          //  var model = new CustomerModel();
+           var model = new CustomerModel();
 
             ObservableList<CustomerTm> obList = FXCollections.observableArrayList();
 
@@ -174,6 +174,7 @@ public class CustomerFormController {
                boolean isupdate = customerBO.updateCustomer(customerDto);
                if (isupdate) {
                    new Alert(Alert.AlertType.CONFIRMATION, "customer updated!").show();
+                   clearFields();
                    initialize();
                }
            }
@@ -183,7 +184,6 @@ public class CustomerFormController {
             String customerId = txtId.getText();
             CustomerDto customerDto = customerBO.searchCustomer(customerId);
 
-            System.out.println("hii");
 
             if (customerDto != null) {
                 fillFields(customerDto);

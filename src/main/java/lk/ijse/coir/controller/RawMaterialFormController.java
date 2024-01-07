@@ -247,6 +247,7 @@ private void loadAllMaterials() throws SQLException, ClassNotFoundException {
         boolean isupdate = rawMaterialBO.updateRawMaterial(rawMaterialDto);
         if (isupdate) {
             new Alert(Alert.AlertType.CONFIRMATION, "rawMaterial updated!").show();
+            clearFields();
             initialize();
         }
     }

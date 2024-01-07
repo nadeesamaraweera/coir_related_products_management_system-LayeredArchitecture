@@ -98,7 +98,7 @@ public class CustomerModel {
         return pstm.executeUpdate() > 0;
     }*/
 
-   /* public List<CustomerDto> loadAllCustomers() throws SQLException {
+   public List<CustomerDto> loadAllCustomers() throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "SELECT * FROM customer";
@@ -115,7 +115,7 @@ public class CustomerModel {
             ));
         }
         return cusList;
-    }*/
+    }
 
    public static String totalCustomerCount() throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();

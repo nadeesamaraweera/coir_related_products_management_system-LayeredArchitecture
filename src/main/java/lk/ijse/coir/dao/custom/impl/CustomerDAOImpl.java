@@ -4,7 +4,6 @@ import lk.ijse.coir.dao.SQLUtil;
 import lk.ijse.coir.dao.custom.CustomerDAO;
 import lk.ijse.coir.entity.Customer;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
