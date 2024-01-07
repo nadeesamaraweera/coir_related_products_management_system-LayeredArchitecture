@@ -12,12 +12,14 @@ public class DAOFactory {
     }
 
     public enum DAOTypes{
-        CUSTOMER,ITEM,ORDER,ORDER_DETAIL,QUERY
+        CUSTOMER,RAWMATERIAL,ITEM,ORDER,ORDER_DETAIL,QUERY
     }
     public SuperDAO getDAO(DAOTypes daoTypes){
         switch (daoTypes){
             case CUSTOMER:
                 return new CustomerDAOImpl();
+            case RAWMATERIAL:
+                 return new RawMaterialDAOImpl();
             //case ITEM:
               //  return new ItemDAOImpl();
             //case ORDER:

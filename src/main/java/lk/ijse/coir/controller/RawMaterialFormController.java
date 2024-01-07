@@ -1,3 +1,4 @@
+
 package lk.ijse.coir.controller;
 
 import javafx.collections.FXCollections;
@@ -13,6 +14,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import lk.ijse.coir.bo.custom.RawMaterialBO;
+import lk.ijse.coir.bo.custom.impl.RawMaterialBOImpl;
+import lk.ijse.coir.dto.CustomerDto;
 import lk.ijse.coir.dto.RawMaterialDto;
 import lk.ijse.coir.dto.tm.RawTm;
 import lk.ijse.coir.model.RawMaterialModel;
@@ -55,9 +59,11 @@ public class RawMaterialFormController {
     @FXML
     private TableView<RawTm> tblRaw;
 
+    RawMaterialBO rawMaterialBO = new RawMaterialBOImpl();
 
 
-    public void initialize() {
+
+    public void initialize() throws SQLException, ClassNotFoundException {
         setCellValueFactory();
         loadAllMaterials();
     }
@@ -70,32 +76,28 @@ public class RawMaterialFormController {
 
     }
 
-    private void loadAllMaterials() {
-        var model = new RawMaterialModel();
 
-        ObservableList<RawTm> obList = FXCollections.observableArrayList();
+private void loadAllMaterials() throws SQLException, ClassNotFoundException {
+    ObservableList<RawTm> obList = FXCollections.observableArrayList();
 
-        try {
-            List<RawMaterialDto> dtoList = model.getAllMaterials();
+    List<RawMaterialDto> dtoList = rawMaterialBO.getAllMaterials();
 
-            for (RawMaterialDto dto : dtoList) {
-                obList.add(
-                        new RawTm(
-                                dto.getRawMaterialId(),
-                                dto.getMaterialName(),
-                                dto.getQtyOnStock(),
-                                dto.getUnitPrice()
+    for (RawMaterialDto dto : dtoList) {
+        obList.add(
+                new RawTm(
+                        dto.getRawMaterialId(),
+                        dto.getMaterialName(),
+                        dto.getQtyOnStock(),
+                        dto.getUnitPrice()
 
 
-                        )
-                );
-            }
-            
-            tblRaw.setItems(obList);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+                )
+        );
     }
+
+    tblRaw.setItems(obList);
+}
+
 
     @FXML
     void btnBackOnAction(ActionEvent event) throws IOException {
@@ -115,39 +117,42 @@ public class RawMaterialFormController {
 
     }
 
+    boolean existRaw(String id) throws SQLException, ClassNotFoundException {
+        return rawMaterialBO.existRawMaterial(id);
+
+    }
+
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
-        String rawMaterialId = txtId.getText();
 
-        var rawModel = new RawMaterialModel();
+        String id = tblRaw.getSelectionModel().getSelectedItem().getRawMaterialId();
         try {
-            boolean isDeleted = rawModel.deleteRaw(rawMaterialId);
-
-            if (isDeleted) {
-                tblRaw.refresh();
-                new Alert(Alert.AlertType.CONFIRMATION, "raw material deleted!").show();
-                initialize();
+            if (existRaw(id)) {
+                new Alert(Alert.AlertType.CONFIRMATION,"Delete Successful!").show();
             }
+            rawMaterialBO.deleteRawMaterial(id);
+            tblRaw.getItems().remove(tblRaw.getSelectionModel().getSelectedItem());
+            tblRaw.getSelectionModel().clearSelection();
+            clearFields();
+
         } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            new Alert(Alert.AlertType.ERROR, "Failed to delete the rawMaterial " + id).show();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
     @FXML
-    void txtSearchOnAction(ActionEvent event) {
+    void txtSearchOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+
         String rawMaterialId = txtId.getText();
+        RawMaterialDto rawMaterialDto = rawMaterialBO.searchRawMaterial(rawMaterialId);
 
-        var model = new RawMaterialModel();
-        try {
-            RawMaterialDto dto = model.searchRaw(rawMaterialId);
 
-            if (dto != null) {
-                fillFields(dto);
-            } else {
-                new Alert(Alert.AlertType.INFORMATION, "Raw Material not  found!").show();
-            }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        if (rawMaterialDto != null) {
+            fillFields(rawMaterialDto);
+        } else {
+            new Alert(Alert.AlertType.INFORMATION, "rawMaterial not found!").show();
         }
     }
 
@@ -161,30 +166,14 @@ public class RawMaterialFormController {
 
 
     @FXML
-    void btnSaveOnAction(ActionEvent event) {
-        String rawMaterialId = txtId.getText();
-        String materialName = txtName.getText();
-        Double qtyOnStock = Double.parseDouble(String.valueOf(txtQty.getText()));
-        Double unitPrice = Double.parseDouble(String.valueOf(txtUnitprice.getText()));
+    void btnSaveOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
 
-        boolean isValidate = validateRawMaterial();
-
-        if (isValidate) {
-
-
-            var dto = new RawMaterialDto(rawMaterialId, materialName, qtyOnStock, unitPrice);
-
-            var model = new RawMaterialModel();
-            try {
-                boolean isSaved = model.saveraw(dto);
-                if (isSaved) {
-                    new Alert(Alert.AlertType.CONFIRMATION, "raw Material saved!").show();
-                    clearFields();
-                    initialize();
-                }
-            } catch (SQLException e) {
-                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-            }
+        RawMaterialDto rawMaterialDto = new RawMaterialDto(txtId.getText(), txtName.getText(),Double.parseDouble(String.valueOf(txtQty.getText())),Double.parseDouble(String.valueOf(txtUnitprice.getText())));
+        boolean issave = rawMaterialBO.saveRawMaterial(rawMaterialDto);
+        if (issave) {
+            new Alert(Alert.AlertType.CONFIRMATION, "rawMaterial saved!").show();
+            clearFields();
+            initialize();
         }
 
     }
@@ -231,7 +220,8 @@ public class RawMaterialFormController {
     }
 
 
-            /*Double unitPrice = Double.parseDouble(txtUnitprice.getText());
+
+/*Double unitPrice = Double.parseDouble(txtUnitprice.getText());
             String unitPriceString = String.format("%.2f", unitPrice);
 
 
@@ -250,27 +240,14 @@ public class RawMaterialFormController {
 
 
 
+
     @FXML
-    void btnUpdateOnAction(ActionEvent event) {
-        String rawMaterialId = txtId.getText();
-        String materialName = txtName.getText();
-        Double qtyOnStock= Double.valueOf(txtQty.getText());
-        Double unitPrice= Double.valueOf(txtUnitprice.getText());
-
-
-
-        var dto = new RawMaterialDto(rawMaterialId, materialName,qtyOnStock,unitPrice);
-
-        var model = new RawMaterialModel();
-        try {
-            boolean isUpdated = model.updateraw(dto);
-            System.out.println(isUpdated);
-            if (isUpdated) {
-                new Alert(Alert.AlertType.CONFIRMATION, "raw Material updated!").show();
-                initialize();
-            }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+    void btnUpdateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        RawMaterialDto rawMaterialDto = new RawMaterialDto(txtId.getText(), txtName.getText(),Double.valueOf(txtQty.getText()), Double.valueOf(txtUnitprice.getText()));
+        boolean isupdate = rawMaterialBO.updateRawMaterial(rawMaterialDto);
+        if (isupdate) {
+            new Alert(Alert.AlertType.CONFIRMATION, "rawMaterial updated!").show();
+            initialize();
         }
     }
     void clearFields() {
@@ -281,6 +258,4 @@ public class RawMaterialFormController {
        
     }
 }
-
-
 

@@ -2,8 +2,6 @@ package lk.ijse.coir.dao.custom.impl;
 
 import lk.ijse.coir.dao.SQLUtil;
 import lk.ijse.coir.dao.custom.CustomerDAO;
-import lk.ijse.coir.db.DbConnection;
-import lk.ijse.coir.dto.CustomerDto;
 import lk.ijse.coir.entity.Customer;
 
 import java.sql.Connection;
@@ -79,6 +77,20 @@ public class CustomerDAOImpl implements CustomerDAO {
         }
         return  null;
     }
+
+  /*  @Override
+    public static String to() throws SQLException, ClassNotFoundException {
+      //  Connection connection = DbConnection.getInstance().getConnection();
+
+        String sql = "SELECT COUNT(*) AS CustomerCount FROM customer";
+        ResultSet resultSet =SQLUtil.execute( "SELECT COUNT(*) AS CustomerCount FROM customer") ;
+
+
+        if (resultSet.next()) {
+            return resultSet.getString(1);
+        }
+        return null;
+    }*/
 }
 
 

@@ -47,7 +47,7 @@ public class RawMaterialModel {
         return pstm.executeUpdate() > 0;
     }
 
-    public static RawMaterialDto searchRaw(String rawMaterialId) throws SQLException {
+   public static RawMaterialDto searchRaw(String rawMaterialId) throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "SELECT * FROM raw_material WHERE rawMaterial_id = ?";
@@ -69,7 +69,7 @@ public class RawMaterialModel {
         return dto;
     }
 
-    public List<RawMaterialDto> getAllMaterials() throws SQLException {
+    /*public List<RawMaterialDto> getAllMaterials() throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "SELECT * FROM raw_material";
@@ -91,7 +91,7 @@ public class RawMaterialModel {
         }
         return dtoList;
 
-    }
+    }*/
 
     public boolean deleteRaw(String rawMaterial_id) throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();

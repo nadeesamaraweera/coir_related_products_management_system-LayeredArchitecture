@@ -8,7 +8,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface CustomerDAO extends CrudDAO<Customer> {
-    //boolean exist(String id) throws SQLException, ClassNotFoundException;
+    //static String totalCustomerCount() throws SQLException, ClassNotFoundException;
+
+        //boolean exist(String id) throws SQLException, ClassNotFoundException;
 
     //boolean delete(Customer customer) throws SQLException, ClassNotFoundException;
 

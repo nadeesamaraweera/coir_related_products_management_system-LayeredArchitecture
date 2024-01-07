@@ -107,6 +107,7 @@ public class CustomerFormController {
             boolean issave = customerBO.saveCustomer(customerDto);
             if (issave) {
                 new Alert(Alert.AlertType.CONFIRMATION, "customer saved!").show();
+                clearFields();
                 initialize();
             }
         }
@@ -206,11 +207,11 @@ public class CustomerFormController {
 
 
     @FXML
-        void btnDeleteOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        void btnDeleteOnAction(ActionEvent event){
             String id = tblCustomer.getSelectionModel().getSelectedItem().getCustomerId();
         try {
-            if (!existCustomer(id)) {
-                new Alert(Alert.AlertType.ERROR, "There is no such customer associated with the id " + id).show();
+            if (existCustomer(id)) {
+                new Alert(Alert.AlertType.CONFIRMATION,"Delete Successful!").show();
             }
             customerBO.deleteCustomer(id);
             tblCustomer.getItems().remove(tblCustomer.getSelectionModel().getSelectedItem());

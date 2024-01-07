@@ -110,9 +110,6 @@ public class ItemFormController {
 
                     if(type.orElse(no) == yes) {
                         int selectedIndex = tblItem.getSelectionModel().getSelectedIndex();
-                        //String itemId = (String) colItemId.getCellData(selectedIndex);
-
-                        //deleteItem(itemId);   //delete item from the database
 
                         obList.remove(selectedIndex);   //delete item from the JFX-Table
                         tblItem.refresh();

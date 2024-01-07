@@ -88,7 +88,7 @@ public class CustomerModel {
    // }
 
 
-    public boolean deleteCustomer(String customerId) throws SQLException {
+    /*public boolean deleteCustomer(String customerId) throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "DELETE FROM customer WHERE customer_id = ?";
@@ -96,7 +96,7 @@ public class CustomerModel {
         pstm.setString(1, customerId);
 
         return pstm.executeUpdate() > 0;
-    }
+    }*/
 
    /* public List<CustomerDto> loadAllCustomers() throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
@@ -117,7 +117,7 @@ public class CustomerModel {
         return cusList;
     }*/
 
-    public static String totalCustomerCount() throws SQLException {
+   public static String totalCustomerCount() throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "SELECT COUNT(*) AS CustomerCount FROM customer";
