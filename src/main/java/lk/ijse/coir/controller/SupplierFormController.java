@@ -13,6 +13,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import lk.ijse.coir.bo.custom.SupplierBO;
+import lk.ijse.coir.bo.custom.impl.SupplierBOImpl;
+import lk.ijse.coir.dto.CustomerDto;
 import lk.ijse.coir.dto.SupplierDto;
 import lk.ijse.coir.dto.tm.SupplierTm;
 import lk.ijse.coir.model.SupplierModel;
@@ -54,7 +57,9 @@ public class SupplierFormController {
     @FXML
     private TextField txtTel;
 
-    public void initialize() {
+    SupplierBO supplierBO = new SupplierBOImpl();
+
+    public void initialize() throws ClassNotFoundException {
         setCellValueFactory();
         loadAllSuppliers();
     }
@@ -66,13 +71,13 @@ public class SupplierFormController {
         colTel.setCellValueFactory(new PropertyValueFactory<>("tel"));
     }
 
-    private void loadAllSuppliers() {
+    private void loadAllSuppliers() throws ClassNotFoundException {
         var model = new SupplierModel();
 
         ObservableList<SupplierTm> obList = FXCollections.observableArrayList();
 
         try {
-            List<SupplierDto> dtoList = model.getAllSuppliers();
+            List<SupplierDto> dtoList = supplierBO.getAllSuppliers();
 
             for (SupplierDto dto : dtoList) {
                 obList.add(
@@ -92,30 +97,13 @@ public class SupplierFormController {
     }
 
     @FXML
-    void btnSaveOnAction(ActionEvent event) {
-        String supplierId = txtId.getText();
-        String supplierName = txtName.getText();
-        String address = txtAddress.getText();
-        String tel = txtTel.getText();
-
-        boolean isValidate = validateSupplier();
-
-        if (isValidate) {
-
-
-            var dto = new SupplierDto(supplierId, supplierName, address, tel);
-
-            var model = new SupplierModel();
-            try {
-                boolean isSaved = model.saveSupplier(dto);
-                if (isSaved) {
-                    new Alert(Alert.AlertType.CONFIRMATION, "supplier saved!").show();
-                    clearFields();
-                    initialize();
-                }
-            } catch (SQLException e) {
-                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-            }
+    void btnSaveOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        SupplierDto supplierDto = new SupplierDto(txtId.getText(), txtName.getText(), txtAddress.getText(), txtTel.getText());
+        boolean issave = supplierBO.saveSupplier(supplierDto);
+        if (issave) {
+            new Alert(Alert.AlertType.CONFIRMATION, "supplier saved!").show();
+            clearFields();
+            initialize();
 
 
         }
@@ -175,8 +163,8 @@ public class SupplierFormController {
 
 
     @FXML
-    void btnUpdateOnAction(ActionEvent event) {
-        String supplierId = txtId.getText();
+    void btnUpdateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        /*String supplierId = txtId.getText();
         String supplierName = txtName.getText();
         String address = txtAddress.getText();
         String tel = txtTel.getText();
@@ -193,12 +181,20 @@ public class SupplierFormController {
             }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }*/
+
+        SupplierDto supplierDto = new SupplierDto(txtId.getText(), txtName.getText(), txtAddress.getText(), txtTel.getText());
+        boolean isupdate = supplierBO.updateSupplier(supplierDto);
+        if (isupdate) {
+            new Alert(Alert.AlertType.CONFIRMATION, "supplier updated!").show();
+            clearFields();
+            initialize();
         }
     }
 
     @FXML
-    void txtSearchOnAction(ActionEvent event) {
-        String supplierId = txtId.getText();
+    void txtSearchOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+       /* String supplierId = txtId.getText();
 
         var model = new SupplierModel();
         try {
@@ -211,7 +207,18 @@ public class SupplierFormController {
             }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }*/
+
+        String supplierId = txtId.getText();
+        SupplierDto supplierDto = supplierBO.searchSupplier(supplierId);
+
+
+        if (supplierDto != null) {
+            fillFields(supplierDto);
+        } else {
+            new Alert(Alert.AlertType.INFORMATION, "supplier not found!").show();
         }
+
     }
 
     private void fillFields(SupplierDto dto) {
@@ -221,9 +228,13 @@ public class SupplierFormController {
         txtTel.setText(dto.getTel());
     }
 
+    boolean existSupplier(String id) throws SQLException, ClassNotFoundException {
+        return supplierBO.existSupplier(id);
+
+    }
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
-        String supplierId = txtId.getText();
+       /* String supplierId = txtId.getText();
 
         var supplierModel = new SupplierModel();
         try {
@@ -236,7 +247,23 @@ public class SupplierFormController {
             }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }*/
+        String id = tblSupplier.getSelectionModel().getSelectedItem().getSupplierId();
+        try {
+            if (existSupplier(id)) {
+                new Alert(Alert.AlertType.CONFIRMATION,"Delete Successful!").show();
+            }
+            supplierBO.deleteSupplier(id);
+            tblSupplier.getItems().remove(tblSupplier.getSelectionModel().getSelectedItem());
+            tblSupplier.getSelectionModel().clearSelection();
+            clearFields();
+
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, "Failed to delete the supplier " + id).show();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
+
     }
 
     @FXML
