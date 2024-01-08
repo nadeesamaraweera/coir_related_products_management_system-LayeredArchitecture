@@ -62,14 +62,14 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     @Override
     public boolean exist(String id) throws SQLException, ClassNotFoundException {
-        ResultSet rst=SQLUtil.execute("SELECT * FROM Customer WHERE customer_id=?",id);
+        ResultSet rst=SQLUtil.execute("SELECT * FROM customer WHERE customer_id=?",id);
         return rst.next();
 
     }
 
     @Override
     public Customer search(String id) throws SQLException, ClassNotFoundException {
-        ResultSet rst = SQLUtil.execute("SELECT * FROM Customer WHERE customer_id=?", id);
+        ResultSet rst = SQLUtil.execute("SELECT * FROM customer WHERE customer_id=?", id);
         while (rst.next()){
             Customer customer =new Customer(rst.getString(1),rst.getString(2),rst.getString(3),rst.getString(4));
             return customer;

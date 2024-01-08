@@ -11,6 +11,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import lk.ijse.coir.bo.custom.ItemBO;
+import lk.ijse.coir.bo.custom.impl.ItemBOImpl;
 import lk.ijse.coir.dto.ItemDto;
 import lk.ijse.coir.dto.RawMaterialDto;
 import lk.ijse.coir.dto.tm.ItemTm;
@@ -70,8 +72,8 @@ public class ItemFormController {
     @FXML
     private Label txtRawMaterialId;
 
-
-    private final ItemModel itemModel = new ItemModel();
+    private final ItemModel itemModel =new ItemModel();
+    ItemBO itemBO = new ItemBOImpl();
 
 
 
@@ -145,19 +147,6 @@ public class ItemFormController {
             throw new RuntimeException(e);
         }
     }
-
-    private void deleteItem(String ItemId) {
-        try {
-            boolean isDeleted = itemModel.deleteItem(ItemId);
-            if(isDeleted)
-                new Alert(Alert.AlertType.CONFIRMATION, "item deleted!").show();
-                initialize();
-        } catch (SQLException ex) {
-            new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
-        }
-    }
-
-
     @FXML
     void btnBackOnAction(ActionEvent event) throws IOException {
         AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/dashboardForm.fxml"));
@@ -176,29 +165,13 @@ public class ItemFormController {
     }
 
     @FXML
-    void btnSaveOnAction(ActionEvent event) {
-        String itemId = txtItemId.getText();
-        String itemName = txtItemName.getText();
-        double unitPrice = Double.parseDouble(txtUnitPrice.getText());
-        int qtyOnHand = Integer.parseInt(txtQtyOnHand.getText());
-        String rawMaterialId = cmbRawMaterialId.getValue();
-
-        boolean isValidate = validateItem();
-
-        if(isValidate) {
-            var itemDto = new ItemDto(itemId, itemName, unitPrice, qtyOnHand, rawMaterialId);
-
-            try {
-                boolean isSaved = itemModel.saveItem(itemDto);
-                if (isSaved) {
-                    new Alert(Alert.AlertType.CONFIRMATION, "item saved!").show();
-                    LoadAllItems();
-
-                    clearFields();
-                }
-            } catch (SQLException e) {
-                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-            }
+    void btnSaveOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        ItemDto itemDto = new ItemDto(txtItemId.getText(), txtItemName.getText(),Double.parseDouble(String.valueOf(txtUnitPrice.getText())),Integer.parseInt(String.valueOf(txtQtyOnHand.getText())),cmbRawMaterialId.getValue());
+        boolean issave = itemBO.saveItem(itemDto);
+        if (issave) {
+            new Alert(Alert.AlertType.CONFIRMATION, "item saved!").show();
+            clearFields();
+            initialize();
         }
 
     }
@@ -261,43 +234,20 @@ public class ItemFormController {
 
 
     @FXML
-    void btnUpdateOnAction(ActionEvent event) {
-        String itemId = txtItemId.getText();
-        String itemName = txtItemName.getText();
-        double unitPrice = Double.parseDouble(txtUnitPrice.getText());
-        int qtyOnHand = Integer.parseInt(txtQtyOnHand.getText());
-        String rawMaterialId = cmbRawMaterialId.getValue();
-
-//        var model = new ItemModel();
-        try {
-            boolean isUpdated = itemModel.updateItem(new ItemDto(itemId, itemName, unitPrice, qtyOnHand, rawMaterialId));
-            if (isUpdated) {
-                new Alert(Alert.AlertType.CONFIRMATION, "item updated").show();
-                initialize();
-            }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+    void btnUpdateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        ItemDto itemDto = new ItemDto(txtItemId.getText(),txtItemName.getText(),Double.parseDouble(String.valueOf(txtUnitPrice.getText())),Integer.parseInt(String.valueOf(txtQtyOnHand.getText())),cmbRawMaterialId.getValue());
+        boolean isupdate = itemBO.updateItem(itemDto);
+        if (isupdate) {
+            new Alert(Alert.AlertType.CONFIRMATION, "item updated!").show();
+            clearFields();
+            initialize();
         }
 
     }
+    boolean existItemId(String id) throws SQLException, ClassNotFoundException {
+        return itemBO.existItem(id);
 
-    @FXML
-    void btnDeleteOnAction(ActionEvent event) {
-        String ItemId = txtItemId.getText();
-
-        try {
-            boolean isDeleted = itemModel.deleteItem(ItemId);
-
-            if(isDeleted) {
-                new Alert(Alert.AlertType.CONFIRMATION, "item deleted!").show();
-                initialize();
-            }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        }
     }
-
-
 
     private void setListener() {
         tblItem.getSelectionModel().selectedItemProperty()
@@ -326,27 +276,22 @@ public class ItemFormController {
     }
 
 
-    public void itemIdSearchOnAction(ActionEvent actionEvent) {
-        String code = txtItemId.getText();
+    public void itemIdSearchOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
 
-        try {
-            ItemDto dto = itemModel.searchItem(code);
-            if (dto != null) {
-                setFields(dto);
-            } else {
-                new Alert(Alert.AlertType.INFORMATION, "item not found!").show();
-            }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        String itemId = txtItemId.getText();
+        ItemDto itemDto = itemBO.searchItem(itemId);
+
+
+        if (itemDto != null) {
+            setFields(itemDto);
+        } else {
+            new Alert(Alert.AlertType.INFORMATION, "rawMaterial not found!").show();
         }
 
-    }
+        }
 
     @FXML
     void cmbRawMaterialIdOnAction(ActionEvent event) {
-        //String rawMaterialId = cmbRawMaterialId.getValue();
-        // RawMaterialDto dto = rawMaterialModel.searchCustomer(rawMaterialId);
-
 
     }
 

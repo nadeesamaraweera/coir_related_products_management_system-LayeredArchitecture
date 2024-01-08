@@ -26,9 +26,8 @@ public class DAOFactory {
                 return new EmployeeDAOImpl();
             case SUPPLIER:
                 return new SupplierDAOImpl();
-
-            //case ITEM:
-              //  return new ItemDAOImpl();
+            case ITEM:
+                return new ItemDAOImpl();
             //case ORDER:
               //  return new OrderDAOImpl();
             //case ORDER_DETAIL:
