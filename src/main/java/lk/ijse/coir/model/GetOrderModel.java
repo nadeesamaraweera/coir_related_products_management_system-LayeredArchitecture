@@ -1,3 +1,4 @@
+/*
 package lk.ijse.coir.model;
 
 import lk.ijse.coir.db.DbConnection;
@@ -41,3 +42,4 @@ public class GetOrderModel {
         return result;
     }
 }
+*/

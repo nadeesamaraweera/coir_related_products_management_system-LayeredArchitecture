@@ -18,7 +18,7 @@ import lk.ijse.coir.bo.custom.impl.SupplierBOImpl;
 import lk.ijse.coir.dto.CustomerDto;
 import lk.ijse.coir.dto.SupplierDto;
 import lk.ijse.coir.dto.tm.SupplierTm;
-import lk.ijse.coir.model.SupplierModel;
+
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -72,7 +72,7 @@ public class SupplierFormController {
     }
 
     private void loadAllSuppliers() throws ClassNotFoundException {
-        var model = new SupplierModel();
+      //  var model = new SupplierBO();
 
         ObservableList<SupplierTm> obList = FXCollections.observableArrayList();
 

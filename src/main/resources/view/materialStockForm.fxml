@@ -32,41 +32,26 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <JFXComboBox fx:id="cmbSupplierId" layoutX="126.0" layoutY="105.0" onAction="#cmbSupplierOnAction" prefHeight="27.0" prefWidth="203.0" />
+      <JFXComboBox fx:id="cmbSupplierId" focusColor="BLACK" layoutX="126.0" layoutY="105.0" onAction="#cmbSupplierOnAction" prefHeight="27.0" prefWidth="203.0" />
       <Label layoutX="456.0" layoutY="110.0" text="Supplier Name:">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label fx:id="lblSupplierName" layoutX="571.0" layoutY="107.0" prefHeight="21.0" prefWidth="80.0" textFill="#278d7f">
-         <font>
-            <Font name="System Bold" size="17.0" />
-         </font>
-      </Label>
-      <Label layoutX="22.0" layoutY="164.0" text="RawMaterial Id:">
+      <Label layoutX="22.0" layoutY="168.0" text="RawMaterial Id:">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <JFXComboBox fx:id="cmbRawId" layoutX="21.0" layoutY="185.0" onAction="#cmbRawIdOnAction" prefHeight="33.0" prefWidth="183.0" />
-      <Label layoutX="248.0" layoutY="164.0" text="Material Name:">
+      <JFXComboBox fx:id="cmbRawId" focusColor="BLACK" layoutX="21.0" layoutY="198.0" onAction="#cmbRawIdOnAction" prefHeight="34.0" prefWidth="164.0" />
+      <Label layoutX="237.0" layoutY="164.0" text="Material Name:">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label fx:id="lblName" layoutX="263.0" layoutY="189.0" prefHeight="31.0" prefWidth="102.0" textFill="#278d7f">
-         <font>
-            <Font name="System Bold" size="17.0" />
-         </font>
-      </Label>
-      <Label layoutX="427.0" layoutY="164.0" text="Unit Price:">
+      <Label layoutX="420.0" layoutY="165.0" text="Unit Price:">
          <font>
             <Font name="System Bold" size="15.0" />
-         </font>
-      </Label>
-      <Label fx:id="lblUnitPrice" layoutX="430.0" layoutY="190.0" prefHeight="31.0" prefWidth="80.0" textFill="#278d7f">
-         <font>
-            <Font name="System Bold" size="17.0" />
          </font>
       </Label>
       <Label layoutX="538.0" layoutY="164.0" text="Qty On Stock:">
@@ -74,17 +59,12 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label fx:id="lblQtyOnStock" layoutX="553.0" layoutY="188.0" prefHeight="31.0" prefWidth="80.0" textFill="#278d7f">
-         <font>
-            <Font name="System Bold" size="17.0" />
-         </font>
-      </Label>
       <Label layoutX="680.0" layoutY="163.0" text="Qty:">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="txtQty" layoutX="672.0" layoutY="186.0" onAction="#txtQtyOnAction" prefHeight="33.0" prefWidth="66.0" style="-fx-border-color: black;" />
+      <TextField fx:id="txtQty" layoutX="672.0" layoutY="199.0" onAction="#txtQtyOnAction" prefHeight="33.0" prefWidth="66.0" style="-fx-border-color: black;" />
       <TableView fx:id="tblStockCart" layoutX="22.0" layoutY="317.0" prefHeight="389.0" prefWidth="747.0" style="-fx-border-color: black;">
          <columns>
             <TableColumn fx:id="colRawId" prefWidth="131.3333797454834" text="RawMaterial  Id" />
@@ -100,7 +80,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="781.0" layoutY="461.0" onAction="#btnMaterialStockOnAction" prefHeight="40.0" prefWidth="156.0" style="-fx-background-color: #34495e;" styleClass="btn" stylesheets="@../style/style.css" text="Material Stock" textFill="WHITE">
+      <JFXButton fx:id="btnstock" buttonType="RAISED" layoutX="781.0" layoutY="461.0" onAction="#btnMaterialStockOnAction" prefHeight="40.0" prefWidth="156.0" style="-fx-background-color: #34495e;" styleClass="btn" stylesheets="@../style/style.css" text="Material Stock" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -115,20 +95,35 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <Label fx:id="lblNetTotal" layoutX="99.0" layoutY="716.0" prefHeight="33.0" prefWidth="149.0" textFill="#b51313">
-         <font>
-            <Font name="System Bold" size="22.0" />
-         </font>
-      </Label>
-      <Label layoutX="25.0" layoutY="723.0" text="Net Total:">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-      </Label>
       <JFXButton fx:id="btnPrint" buttonType="RAISED" layoutX="807.0" layoutY="568.0" onAction="#btnPrintOnAction" prefHeight="34.0" prefWidth="81.0" style="-fx-background-color: orange;" styleClass="btn" stylesheets="@../style/style.css" text="Print" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
+      <TextField fx:id="txtMaterialName" layoutX="222.0" layoutY="199.0" prefHeight="31.0" prefWidth="155.0" style="-fx-border-color: black;">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtUnitPrice" layoutX="404.0" layoutY="199.0" prefHeight="22.0" prefWidth="111.0" style="-fx-border-color: black;">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtQtyOnStock" layoutX="537.0" layoutY="199.0" prefHeight="22.0" prefWidth="111.0" style="-fx-border-color: black;">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtSupplierName" layoutX="571.0" layoutY="105.0" style="-fx-border-color: black;">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </TextField>
+      <Label fx:id="lblTotal" layoutX="22.0" layoutY="737.0" text="TOTAL : 0.00">
+         <font>
+            <Font size="32.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

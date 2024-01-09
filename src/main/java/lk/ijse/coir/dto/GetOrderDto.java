@@ -1,6 +1,6 @@
 package lk.ijse.coir.dto;
 
-import lk.ijse.coir.dto.tm.MaterialCartTm;
+import lk.ijse.coir.dto.tm.SupplierDetailTm;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,6 +17,6 @@ public class GetOrderDto {
     private String supplierId;
     private String  rawMaterialId;
     private LocalDate date;
-    private List<MaterialCartTm> tmList = new ArrayList<>();
+    private List<SupplierDetailTm> tmList = new ArrayList<>();
 
 }

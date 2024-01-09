@@ -3,26 +3,30 @@ package lk.ijse.coir.dto.tm;
 import javafx.scene.control.Button;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 
-public class MaterialCartTm {
+public class SupplierDetailTm {
 
     private String supplierId;
     private String rawMaterialId;
     private String materialName;
     private int qty;
-    private double unitPrice;
-    private double tot;
-    private Button btn;
+    private BigDecimal unitPrice;
+    private BigDecimal total;
 
-    public MaterialCartTm(String materialId, String materialName, int qty, double unitPrice, double total, Button btn) {
+    public SupplierDetailTm(String materialId, String materialName, int qty, BigDecimal unitPrice, BigDecimal total) {
         this.rawMaterialId = materialId;
         this.materialName = materialName;
         this.qty =qty;
         this.unitPrice =unitPrice;
-        this.tot =total;
-        this.btn =btn;
+        this.total =total;
+
     }
+
 }

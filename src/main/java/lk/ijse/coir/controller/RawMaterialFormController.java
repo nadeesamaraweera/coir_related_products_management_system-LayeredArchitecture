@@ -22,6 +22,7 @@ import lk.ijse.coir.dto.tm.RawTm;
 import lk.ijse.coir.model.RawMaterialModel;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -168,7 +169,7 @@ private void loadAllMaterials() throws SQLException, ClassNotFoundException {
     @FXML
     void btnSaveOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
 
-        RawMaterialDto rawMaterialDto = new RawMaterialDto(txtId.getText(), txtName.getText(),Double.parseDouble(String.valueOf(txtQty.getText())),Double.parseDouble(String.valueOf(txtUnitprice.getText())));
+        RawMaterialDto rawMaterialDto = new RawMaterialDto(txtId.getText(), txtName.getText(),Double.parseDouble(String.valueOf(txtQty.getText())), BigDecimal.valueOf(Long.parseLong(txtUnitprice.getText())));
         boolean issave = rawMaterialBO.saveRawMaterial(rawMaterialDto);
         if (issave) {
             new Alert(Alert.AlertType.CONFIRMATION, "rawMaterial saved!").show();
@@ -243,7 +244,7 @@ private void loadAllMaterials() throws SQLException, ClassNotFoundException {
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        RawMaterialDto rawMaterialDto = new RawMaterialDto(txtId.getText(), txtName.getText(),Double.valueOf(txtQty.getText()), Double.valueOf(txtUnitprice.getText()));
+        RawMaterialDto rawMaterialDto = new RawMaterialDto(txtId.getText(), txtName.getText(),Double.valueOf(txtQty.getText()),BigDecimal.valueOf(Long.parseLong(txtUnitprice.getText())));
         boolean isupdate = rawMaterialBO.updateRawMaterial(rawMaterialDto);
         if (isupdate) {
             new Alert(Alert.AlertType.CONFIRMATION, "rawMaterial updated!").show();

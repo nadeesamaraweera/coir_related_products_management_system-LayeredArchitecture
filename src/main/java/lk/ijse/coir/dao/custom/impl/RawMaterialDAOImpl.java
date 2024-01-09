@@ -22,7 +22,7 @@ public class RawMaterialDAOImpl implements RawMaterialDAO {
                     resultSet.getString(1),
                     resultSet.getString(2),
                     resultSet.getDouble(3),
-                    resultSet.getDouble(4));
+                    resultSet.getBigDecimal(4));
 
             rawMaterials.add(rawMaterial);
 
@@ -70,7 +70,7 @@ public class RawMaterialDAOImpl implements RawMaterialDAO {
     public RawMaterial search(String id) throws SQLException, ClassNotFoundException {
         ResultSet rst = SQLUtil.execute("SELECT * FROM raw_material WHERE  rawMaterial_id = ?", id);
         while (rst.next()){
-            RawMaterial rawMaterial =new RawMaterial(rst.getString(1),rst.getString(2),rst.getDouble(3),rst.getDouble(4));
+            RawMaterial rawMaterial =new RawMaterial(rst.getString(1),rst.getString(2),rst.getDouble(3),rst.getBigDecimal(4));
             return rawMaterial;
         }
         return  null;

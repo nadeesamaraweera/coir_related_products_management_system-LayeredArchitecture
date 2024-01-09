@@ -2,7 +2,7 @@ package lk.ijse.coir.model;
 
 import lk.ijse.coir.db.DbConnection;
 import lk.ijse.coir.dto.RawMaterialDto;
-import lk.ijse.coir.dto.tm.MaterialCartTm;
+import lk.ijse.coir.dto.tm.SupplierDetailTm;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -47,7 +47,7 @@ public class RawMaterialModel {
         return pstm.executeUpdate() > 0;
     }
 
-   public static RawMaterialDto searchRaw(String rawMaterialId) throws SQLException {
+  /* public static RawMaterialDto searchRaw(String rawMaterialId) throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "SELECT * FROM raw_material WHERE rawMaterial_id = ?";
@@ -67,7 +67,7 @@ public class RawMaterialModel {
         }
 
         return dto;
-    }
+    }*/
 
     /*public List<RawMaterialDto> getAllMaterials() throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
@@ -116,7 +116,7 @@ public class RawMaterialModel {
                     resultSet.getString(1),
                     resultSet.getString(2),
                     resultSet.getDouble(3),
-                    resultSet.getDouble(4)
+                    resultSet.getBigDecimal(4)
 
 
             ));
@@ -124,8 +124,8 @@ public class RawMaterialModel {
         return rawList;
     }
 
-    public static boolean updateRawMaterial(List<MaterialCartTm> tmList) throws SQLException {
-        for (MaterialCartTm materialCartTm : tmList) {
+    public static boolean updateRawMaterial(List<SupplierDetailTm> tmList) throws SQLException {
+        for (SupplierDetailTm materialCartTm : tmList) {
             if(!updateQty(materialCartTm)) {
                 return false;
             }
@@ -135,7 +135,7 @@ public class RawMaterialModel {
 
 
 
-    private static boolean updateQty(MaterialCartTm materialCartTm) throws SQLException {
+    private static boolean updateQty(SupplierDetailTm materialCartTm) throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "UPDATE raw_material SET qty_on_stock = qty_on_stock + ? WHERE rawMaterial_id = ?";
