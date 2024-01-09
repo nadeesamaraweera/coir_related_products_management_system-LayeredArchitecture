@@ -13,4 +13,14 @@ public class CustomerTm {
     private String customerName;
     private String address;
     private String tel;
+
+    @Override
+    public String toString() {
+        return "CustomerTm{" +
+                "id='" + customerId + '\'' +
+                ", name='" + customerName + '\'' +
+                ", address='" + address + '\'' +
+                ", tel='" + tel + '\'' +
+                '}';
+    }
 }

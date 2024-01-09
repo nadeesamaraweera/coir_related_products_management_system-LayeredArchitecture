@@ -1,7 +1,5 @@
 package lk.ijse.coir.dto;
 
-
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,24 +7,22 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
-public class ItemDto implements Serializable {
+public class OrderDetailDto implements Serializable {
+    private String orderId;
     private String itemId;
-    private String itemName;
+    private int qty;
     private BigDecimal unitPrice;
-    private int qtyOnHand;
-    private String rawMaterialId;
 
     @Override
     public String toString() {
-        return "ItemDto{" +
-                "code='" + itemId + '\'' +
-                ", description='" + itemName + '\'' +
+        return "OrderDetailDto{" +
+                "itemCode='" + itemId + '\'' +
+                ", qty=" + qty +
                 ", unitPrice=" + unitPrice +
-                ", qtyOnHand=" + qtyOnHand +
                 '}';
-
     }
 }
+

@@ -1,4 +1,4 @@
-package lk.ijse.coir.entity;
+package lk.ijse.coir.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,13 +6,16 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
-@NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Item {
+@NoArgsConstructor
+
+public class CustomDto {
+    private String customerId;
+    private String customerName;
+    private String orderId;
     private String itemId;
-    private String itemName;
+    private int qty;
     private BigDecimal unitPrice;
-    private int qtyOnHand;
-    private String rawMaterialId;
+
 }

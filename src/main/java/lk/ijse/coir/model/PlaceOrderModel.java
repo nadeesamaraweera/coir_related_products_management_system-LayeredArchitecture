@@ -1,3 +1,4 @@
+/*
 package lk.ijse.coir.model;
 
 
@@ -43,3 +44,4 @@ import java.sql.SQLException;
         }
     }
 
+*/

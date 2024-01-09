@@ -1,9 +1,11 @@
+
 package lk.ijse.coir.model;
 
 
 import lk.ijse.coir.db.DbConnection;
 import lk.ijse.coir.dto.ItemDto;
-import lk.ijse.coir.dto.tm.CartTm;
+import lk.ijse.coir.dto.tm.OrderDetailTM;
+
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,7 +22,7 @@ public class ItemModel {
 
         pstm.setString(1, itemDto.getItemId());
         pstm.setString(2, itemDto.getItemName());
-        pstm.setDouble(3, itemDto.getUnitPrice());
+        pstm.setBigDecimal(3, itemDto.getUnitPrice());
         pstm.setInt(4, itemDto.getQtyOnHand());
         pstm.setString(5, itemDto.getRawMaterialId());
 
@@ -34,7 +36,7 @@ public class ItemModel {
         PreparedStatement pstm = connection.prepareStatement(sql);
 
         pstm.setString(1, itemtDto.getItemName());
-        pstm.setDouble(2, itemtDto.getUnitPrice());
+        pstm.setBigDecimal(2, itemtDto.getUnitPrice());
         pstm.setInt(3, itemtDto.getQtyOnHand());
         pstm.setString(4, itemtDto.getRawMaterialId());
         pstm.setString(5, itemtDto.getItemId());
@@ -42,9 +44,9 @@ public class ItemModel {
         return pstm.executeUpdate() > 0;
     }
 
-    public static boolean updateItem(List<CartTm> tmList) throws SQLException {
-        for (CartTm cartTm : tmList) {
-            if (!updateQty(cartTm)) {
+    public static boolean updateItem(List<OrderDetailTM> tmList) throws SQLException {
+        for (OrderDetailTM orderDetailTM: tmList) {
+            if (!updateQty(orderDetailTM)) {
                 return false;
             }
         }
@@ -52,13 +54,13 @@ public class ItemModel {
     }
 
 
-    private static boolean updateQty(CartTm cartTm) throws SQLException {
+    private static boolean updateQty(OrderDetailTM orderDetailTM) throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "UPDATE item SET qty_on_hand = qty_on_hand - ? WHERE item_id = ?";
         PreparedStatement pstm = connection.prepareStatement(sql);
-        pstm.setInt(1, cartTm.getQty());
-        pstm.setString(2, cartTm.getItemId());
+        pstm.setInt(1, orderDetailTM.getQty());
+        pstm.setString(2, orderDetailTM.getItemId());
 
         return pstm.executeUpdate() > 0; //true
     }
@@ -78,7 +80,7 @@ public class ItemModel {
             dto = new ItemDto(
                     resultSet.getString(1),
                     resultSet.getString(2),
-                    resultSet.getDouble(3),
+                    resultSet.getBigDecimal(3),
                     resultSet.getInt(4),
                     resultSet.getString(5)
             );
@@ -110,7 +112,7 @@ public class ItemModel {
             var dto = new ItemDto(
                     resultSet.getString(1),
                     resultSet.getString(2),
-                    resultSet.getDouble(3),
+                    resultSet.getBigDecimal(3),
                     resultSet.getInt(4),
                     resultSet.getString(5)
             );

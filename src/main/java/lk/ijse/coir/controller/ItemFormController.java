@@ -16,10 +16,10 @@ import lk.ijse.coir.bo.custom.impl.ItemBOImpl;
 import lk.ijse.coir.dto.ItemDto;
 import lk.ijse.coir.dto.RawMaterialDto;
 import lk.ijse.coir.dto.tm.ItemTm;
-import lk.ijse.coir.model.ItemModel;
 import lk.ijse.coir.model.RawMaterialModel;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
@@ -72,12 +72,12 @@ public class ItemFormController {
     @FXML
     private Label txtRawMaterialId;
 
-    private final ItemModel itemModel =new ItemModel();
+
     ItemBO itemBO = new ItemBOImpl();
 
 
 
-    public void initialize() throws SQLException {
+    public void initialize() throws SQLException, ClassNotFoundException {
         setCellValueFactory();
         LoadAllItems();
         setListener();
@@ -94,9 +94,9 @@ public class ItemFormController {
         colAction.setCellValueFactory(new PropertyValueFactory<>("btn"));
     }
 
-    private void LoadAllItems()  {
+    private void LoadAllItems() throws ClassNotFoundException {
         try {
-            List<ItemDto> dtoList = itemModel.loadAllItems();
+            List<ItemDto> dtoList = itemBO.getAllItems();
 
             ObservableList<ItemTm> obList = FXCollections.observableArrayList();
 
@@ -166,7 +166,8 @@ public class ItemFormController {
 
     @FXML
     void btnSaveOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        ItemDto itemDto = new ItemDto(txtItemId.getText(), txtItemName.getText(),Double.parseDouble(String.valueOf(txtUnitPrice.getText())),Integer.parseInt(String.valueOf(txtQtyOnHand.getText())),cmbRawMaterialId.getValue());
+
+        ItemDto itemDto = new ItemDto(txtItemId.getText(), txtItemName.getText(),BigDecimal.valueOf(Long.parseLong(txtUnitPrice.getText())),Integer.parseInt(String.valueOf(txtQtyOnHand.getText())),cmbRawMaterialId.getValue());
         boolean issave = itemBO.saveItem(itemDto);
         if (issave) {
             new Alert(Alert.AlertType.CONFIRMATION, "item saved!").show();
@@ -235,7 +236,7 @@ public class ItemFormController {
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        ItemDto itemDto = new ItemDto(txtItemId.getText(),txtItemName.getText(),Double.parseDouble(String.valueOf(txtUnitPrice.getText())),Integer.parseInt(String.valueOf(txtQtyOnHand.getText())),cmbRawMaterialId.getValue());
+        ItemDto itemDto = new ItemDto(txtItemId.getText(),txtItemName.getText(), BigDecimal.valueOf(Long.parseLong(txtUnitPrice.getText())),Integer.parseInt(String.valueOf(txtQtyOnHand.getText())),cmbRawMaterialId.getValue());
         boolean isupdate = itemBO.updateItem(itemDto);
         if (isupdate) {
             new Alert(Alert.AlertType.CONFIRMATION, "item updated!").show();

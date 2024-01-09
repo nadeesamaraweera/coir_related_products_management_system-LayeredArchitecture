@@ -28,12 +28,12 @@ public class DAOFactory {
                 return new SupplierDAOImpl();
             case ITEM:
                 return new ItemDAOImpl();
-            //case ORDER:
-              //  return new OrderDAOImpl();
-            //case ORDER_DETAIL:
-              //  return new OrderDetailsDAOImpl();
+            case ORDER:
+                return new OrderDAOImpl();
+            case ORDER_DETAIL:
+               return new OrderDetailsDAOImpl();
             //case QUERY:
-              //  return new QuaryDAOImpl();
+             //  return new QuaryDAOImpl();
             default:
                 return null;
         }
