@@ -10,8 +10,9 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import lk.ijse.coir.bo.custom.CustomerBO;
+import lk.ijse.coir.bo.custom.impl.CustomerBOImpl;
 import lk.ijse.coir.dao.custom.CustomerDAO;
-import lk.ijse.coir.model.CustomerModel;
 import lk.ijse.coir.model.EmployeeModel;
 import lk.ijse.coir.model.ItemModel;
 import lk.ijse.coir.util.DateTimeUtil;
@@ -50,7 +51,7 @@ public class DashboardFormController implements Initializable {
     private Label txtItemTypes;
 
 
-
+    CustomerBO customerBO =new CustomerBOImpl();
 
     @FXML
     void btnLogoutOnAction(ActionEvent event) throws IOException {
@@ -111,7 +112,7 @@ public class DashboardFormController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        CustomerModel customerModel = new CustomerModel();
+        //CustomerModel customerModel = new CustomerModel();
 
         txtdate.setText(DateTimeUtil.dateNow());
         // txtTime.setText(timeNow());
@@ -119,8 +120,10 @@ public class DashboardFormController implements Initializable {
 
 
         try {
-            txtCustomercount.setText(CustomerModel.totalCustomerCount());
+            txtCustomercount.setText(String.valueOf(customerBO.totalCustomerCount()));
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
 

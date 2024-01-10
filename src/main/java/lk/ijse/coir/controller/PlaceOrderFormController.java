@@ -31,7 +31,6 @@ import lk.ijse.coir.dto.ItemDto;
 import lk.ijse.coir.dto.OrderDetailDto;
 
 import lk.ijse.coir.dto.tm.OrderDetailTM;
-import lk.ijse.coir.model.CustomerModel;
 import lk.ijse.coir.model.ItemModel;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -641,7 +640,7 @@ public class PlaceOrderFormController {
     @FXML
     void cmbCustomerOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String customerId = cmbCustomerId.getValue();
-        CustomerDto dto = CustomerModel.searchCustomer(customerId);
+        CustomerDto dto = customerBO.searchCustomer(customerId);
 
         txtCustomerName.setText(dto.getCustomerName());
     }

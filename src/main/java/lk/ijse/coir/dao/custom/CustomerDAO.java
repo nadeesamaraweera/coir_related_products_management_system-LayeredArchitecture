@@ -8,6 +8,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface CustomerDAO extends CrudDAO<Customer> {
+    int totalCustomerCount() throws ClassNotFoundException;
+
+    String generateNewID() throws SQLException, ClassNotFoundException;
     //static String totalCustomerCount() throws SQLException, ClassNotFoundException;
 
         //boolean exist(String id) throws SQLException, ClassNotFoundException;

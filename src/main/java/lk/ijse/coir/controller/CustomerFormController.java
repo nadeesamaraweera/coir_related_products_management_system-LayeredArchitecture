@@ -18,7 +18,6 @@ import lk.ijse.coir.bo.custom.impl.CustomerBOImpl;
 import lk.ijse.coir.dto.CustomerDto;
 import lk.ijse.coir.dto.tm.CustomerTm;
 import lk.ijse.coir.entity.Customer;
-import lk.ijse.coir.model.CustomerModel;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -74,7 +73,7 @@ public class CustomerFormController {
         }
 
         private void loadAllCustomers() {
-           var model = new CustomerModel();
+           //var model = new CustomerModel();
 
             ObservableList<CustomerTm> obList = FXCollections.observableArrayList();
 
@@ -102,23 +101,39 @@ public class CustomerFormController {
 
         @FXML
         void btnSaveOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+            boolean isvalidate =validateCustomer();
+            if(isvalidate){
+               String id =txtId.getText();
+               String name =txtName.getText();
+               String address =txtAddress.getText();
+               String tel =txtTel.getText();
+
+               var dto =new  CustomerDto(id,name,address,tel);
+            }
 
             CustomerDto customerDto = new CustomerDto(txtId.getText(), txtName.getText(), txtAddress.getText(), txtTel.getText());
+           try {
             boolean issave = customerBO.saveCustomer(customerDto);
             if (issave) {
                 new Alert(Alert.AlertType.CONFIRMATION, "customer saved!").show();
                 clearFields();
                 initialize();
+                generateNextCustomerId();
             }
-        }
+            } catch (SQLException e) {
+               new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            } catch (ClassNotFoundException e) {
+              throw new RuntimeException(e);
+            }
+            }
 
 
 
         private boolean validateCustomer() {
 
-            String idText = txtId.getText();
+            String id = txtId.getText();
 
-            boolean isCustomerIdValidation = Pattern.matches("[C][0-9]{3,}", idText);
+            boolean isCustomerIdValidation = Pattern.matches("[C][0-9]{3,}", id);
 
             if (!isCustomerIdValidation) {
 
@@ -129,9 +144,9 @@ public class CustomerFormController {
             }
 
 
-            String nameText = txtName.getText();
+            String name = txtName.getText();
 
-            boolean isCustomerNameValidation = Pattern.matches("[A-Za-z.]{3,}", nameText);
+            boolean isCustomerNameValidation = Pattern.matches("[A-Za-z.]{3,}", name);
 
             if (!isCustomerNameValidation) {
 
@@ -140,9 +155,9 @@ public class CustomerFormController {
                 return  false;
             }
 
-            String addressText = txtAddress.getText();
+            String address = txtAddress.getText();
 
-            boolean isCustomerAddressValidation = Pattern.matches("[A-Za-z0-9/.\\s]{3,}", addressText);
+            boolean isCustomerAddressValidation = Pattern.matches("[A-Za-z0-9/.\\s]{3,}", address);
 
             if (!isCustomerAddressValidation) {
 
@@ -152,9 +167,9 @@ public class CustomerFormController {
             }
 
 
-             String telText = txtTel.getText();
+             String tel= txtTel.getText();
 
-              boolean isCustomerTelValidation = Pattern.matches("[0-9]{10}", telText);
+              boolean isCustomerTelValidation = Pattern.matches("[0-9]{10}", tel);
 
                if (!isCustomerTelValidation) {
 
@@ -247,5 +262,16 @@ public class CustomerFormController {
             txtAddress.setText("");
             txtTel.setText("");
         }
+
+    private void generateNextCustomerId() {
+        try {
+            String customerID = customerBO.generateNewID();
+            txtId.setText(customerID);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
     }
 

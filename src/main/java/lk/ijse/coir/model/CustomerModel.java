@@ -1,3 +1,4 @@
+/*
 package lk.ijse.coir.model;
 
 import lk.ijse.coir.db.DbConnection;
@@ -42,7 +43,8 @@ public class CustomerModel {
         return pstm.executeUpdate() > 0;
     }
 
-    public static CustomerDto searchCustomer(String customerId) throws SQLException {
+   */
+/* public static CustomerDto searchCustomer(String customerId) throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "SELECT * FROM customer WHERE customer_id = ?";
@@ -63,10 +65,12 @@ public class CustomerModel {
         }
 
         return dto;
-    }
+    }*//*
+
 
     //public List<CustomerDto> getAllCustomers() throws SQLException {
-        /*Connection connection = DbConnection.getInstance().getConnection();
+        */
+/*Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "SELECT * FROM customer";
         PreparedStatement pstm = connection.prepareStatement(sql);
@@ -84,11 +88,13 @@ public class CustomerModel {
             var dto = new CustomerDto(cus_id, cus_name, cus_address, cus_tel);
             dtoList.add(dto);
         }
-        return dtoList;*/
+        return dtoList;*//*
+
    // }
 
 
-    /*public boolean deleteCustomer(String customerId) throws SQLException {
+    */
+/*public boolean deleteCustomer(String customerId) throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "DELETE FROM customer WHERE customer_id = ?";
@@ -96,7 +102,8 @@ public class CustomerModel {
         pstm.setString(1, customerId);
 
         return pstm.executeUpdate() > 0;
-    }*/
+    }*//*
+
 
    public List<CustomerDto> loadAllCustomers() throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
@@ -117,7 +124,8 @@ public class CustomerModel {
         return cusList;
     }
 
-   public static String totalCustomerCount() throws SQLException {
+  */
+/* public static String totalCustomerCount() throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "SELECT COUNT(*) AS CustomerCount FROM customer";
@@ -128,5 +136,7 @@ public class CustomerModel {
             return resultSet.getString(1);
         }
         return null;
-    }
+    }*//*
+
 }
+*/

@@ -51,6 +51,11 @@ public class CustomerBOImpl implements CustomerBO {
     }
 
     @Override
+    public String generateNewID() throws SQLException, ClassNotFoundException {
+        return customerDAO.generateNewID();
+    }
+
+    @Override
     public CustomerDto searchCustomer(String id) throws SQLException, ClassNotFoundException {
 
         Customer customer = customerDAO.search(id);
@@ -62,14 +67,8 @@ public class CustomerBOImpl implements CustomerBO {
         }
 
     }
-
-  /*  public String generateId() throws SQLException, ClassNotFoundException {
-        String lastNumber = customerDAO.get ();
-        if (lastNumber != null) {
-            int newLastnb = Integer.parseInt(lastNumber.substring(2)) + 1;
-            return String.format("R-%05d", newLastnb);
-        } else {
-            return "C001";
-        }
-    }*/
+    @Override
+    public int totalCustomerCount() throws ClassNotFoundException, SQLException {
+        return customerDAO.totalCustomerCount();
+    }
 }

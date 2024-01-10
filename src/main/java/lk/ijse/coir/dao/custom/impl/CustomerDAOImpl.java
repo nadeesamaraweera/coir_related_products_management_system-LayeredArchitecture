@@ -7,7 +7,6 @@ import lk.ijse.coir.entity.Customer;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class CustomerDAOImpl implements CustomerDAO {
 
@@ -77,19 +76,32 @@ public class CustomerDAOImpl implements CustomerDAO {
         return  null;
     }
 
-  /*  @Override
-    public static String to() throws SQLException, ClassNotFoundException {
-      //  Connection connection = DbConnection.getInstance().getConnection();
-
-        String sql = "SELECT COUNT(*) AS CustomerCount FROM customer";
-        ResultSet resultSet =SQLUtil.execute( "SELECT COUNT(*) AS CustomerCount FROM customer") ;
-
-
-        if (resultSet.next()) {
-            return resultSet.getString(1);
+    @Override
+    public int totalCustomerCount() throws ClassNotFoundException {
+        String sql = "SELECT COUNT(*) FROM customer";
+        try {
+            ResultSet resultSet = SQLUtil.execute(sql);
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle or log the exception as needed
         }
-        return null;
-    }*/
+        return 0;
+
+
+    }
+    @Override
+    public String generateNewID() throws SQLException, ClassNotFoundException {
+        ResultSet rst = SQLUtil.execute("SELECT customer_id FROM customer ORDER BY customer_id DESC LIMIT 1");
+        if (rst.next()) {
+            String id = rst.getString("customer_id");
+            int newCustomerId = Integer.parseInt(id.replace("C00", "")) + 1;
+            return String.format("C%03d", newCustomerId);
+        } else {
+            return "C001";
+        }
+    }
 }
 
 
