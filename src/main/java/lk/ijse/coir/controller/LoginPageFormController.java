@@ -10,7 +10,6 @@ import javafx.scene.control.TextField;
 import lk.ijse.coir.bo.custom.LoginBO;
 import lk.ijse.coir.bo.custom.impl.LoginBOImpl;
 import lk.ijse.coir.dao.custom.UserDAO;
-import lk.ijse.coir.model.UserModel;
 import lk.ijse.coir.util.Navigation;
 
 import java.io.IOException;

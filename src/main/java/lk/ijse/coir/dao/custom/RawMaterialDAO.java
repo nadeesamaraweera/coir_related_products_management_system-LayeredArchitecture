@@ -10,4 +10,7 @@ public interface RawMaterialDAO extends CrudDAO<RawMaterial> {
 
 
    // ArrayList<RawMaterial> getAll() throws SQLException, ClassNotFoundException;
+
+    String generateNewID() throws SQLException, ClassNotFoundException;
+
 }

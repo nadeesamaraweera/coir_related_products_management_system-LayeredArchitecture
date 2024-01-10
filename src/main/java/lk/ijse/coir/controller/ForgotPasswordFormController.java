@@ -9,8 +9,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import lk.ijse.coir.bo.custom.LoginBO;
+import lk.ijse.coir.bo.custom.impl.LoginBOImpl;
 import lk.ijse.coir.dto.UserDto;
-import lk.ijse.coir.model.UserModel;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
@@ -36,6 +37,8 @@ public class ForgotPasswordFormController {
         static String username;
         static int otp;
 
+        LoginBO loginBO =new LoginBOImpl();
+
 
         @FXML
         void btnBackOnAction (ActionEvent event) throws IOException {
@@ -50,16 +53,15 @@ public class ForgotPasswordFormController {
 
 
         @FXML
-        void btnOnActionReset(ActionEvent event) throws MessagingException, SQLException, IOException {
+        void btnOnActionReset(ActionEvent event) throws MessagingException, SQLException, IOException, ClassNotFoundException {
             username = txtusername.getText();
             System.out.println(username);
-            UserModel userModel = new UserModel();
             Random random = new Random();
             otp = random.nextInt(9000);
             otp += 1000;
 
             try {
-                UserDto userDto = userModel.getEmail(username);
+                UserDto userDto = loginBO.getEmail(username);
                 System.out.println(userDto.getEmail());
                 sendEmail(userDto.getEmail(), "Login verification", otp + "");
 

@@ -12,11 +12,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lk.ijse.coir.bo.custom.ItemBO;
+import lk.ijse.coir.bo.custom.RawMaterialBO;
 import lk.ijse.coir.bo.custom.impl.ItemBOImpl;
+import lk.ijse.coir.bo.custom.impl.RawMaterialBOImpl;
 import lk.ijse.coir.dto.ItemDto;
 import lk.ijse.coir.dto.RawMaterialDto;
 import lk.ijse.coir.dto.tm.ItemTm;
-import lk.ijse.coir.model.RawMaterialModel;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -74,6 +75,8 @@ public class ItemFormController {
 
 
     ItemBO itemBO = new ItemBOImpl();
+
+    RawMaterialBO rawMaterialBO =new RawMaterialBOImpl();
 
 
 
@@ -137,13 +140,15 @@ public class ItemFormController {
     private void loadRawMaterialsIds() {
         ObservableList<String> obList = FXCollections.observableArrayList();
         try {
-            List<RawMaterialDto> rawList = RawMaterialModel.loadAllMaterials();
+            List<RawMaterialDto> rawList = rawMaterialBO.getAllMaterials();
 
             for (RawMaterialDto dto : rawList) {
                 obList.add(dto.getRawMaterialId());
             }
             cmbRawMaterialId.setItems(obList);
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
@@ -324,8 +329,8 @@ public class ItemFormController {
 
     private void generateNextItemId() {
         try {
-            String customerID = itemBO.generateNewID();
-            txtItemId.setText(customerID);
+            String itemID = itemBO.generateNewID();
+            txtItemId.setText(itemID);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {

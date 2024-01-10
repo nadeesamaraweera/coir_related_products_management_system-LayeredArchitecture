@@ -20,91 +20,9 @@ public class MaterialStockBOImpl implements MaterialStockBO {
     SupplierDetailDAO supplierDetailsDAO = (SupplierDetailDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.SUPPLIER_DETAIL);
     QuaryDAO queryDAO= (QuaryDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.QUERY);
 
-   /* @Override
-    public boolean getOrder(LocalDate orderDate, String supplierId, List<SupplierDetailDto> supplierDetail) throws SQLException, ClassNotFoundException {
-        *//*Transaction*//*
-        Connection connection = null;
-        connection= DbConnection.getInstance().getConnection();
-
-        //Check order id already exist or not
-
-        boolean b1 = orderDAO.exist(orderId);
-        *//*if order id already exist*//*
-        if (b1) {
-            return false;
-        }
-
-        connection.setAutoCommit(false);
-
-        //Save the Order to the order table
-        boolean b2 = orderDAO.save(new Order(orderId,orderDate,customerId));
-
-        if (!b2) {
-            connection.rollback();
-            connection.setAutoCommit(true);
-            return false;
-        }
-
-
-        // add data to the Order Details table
-
-        for (OrderDetailDto detail : orderDetails) {
-            boolean b3 = orderDetailsDAO.save(new OrderDetail(detail.getOrderId(),detail.getItemId(),detail.getQty(),detail.getUnitPrice()));
-            if (!b3) {
-                connection.rollback();
-                connection.setAutoCommit(true);
-                return false;
-            }
-
-            //Search & Update Item
-            ItemDto item = findItem(detail.getItemId());
-            item.setQtyOnHand(item.getQtyOnHand() - detail.getQty());
-
-            //update item
-            boolean b = itemDAO.update(new Item(item.getItemId(), item.getItemName(), item.getUnitPrice(), item.getQtyOnHand(),item.getRawMaterialId()));
-
-            if (!b) {
-                connection.rollback();
-                connection.setAutoCommit(true);
-                return false;
-            }
-        }
-
-        connection.commit();
-        connection.setAutoCommit(true);
-        return true;
-    }*/
 
     @Override
     public boolean getOrder(LocalDate stockDate, String supplierId, List<SupplierDetailDto> supplierDetail) throws SQLException, ClassNotFoundException {
-       /* boolean result = false;
-        Connection connection = null;
-        try {
-            connection = DbConnection.getInstance().getConnection();
-            connection.setAutoCommit(false);
-
-            boolean isOrderSaved = supplierDetailsDAO.save(, gDto.getRawMaterialId(), LocalDate.now(),gDto.getTmList());
-            if (isOrderSaved) {
-                boolean isUpdated = RawMaterialModel.updateRawMaterial(gDto.getTmList());
-                if(isUpdated) {
-                    connection.commit();
-                    result = true;
-
-
-
-                }
-            }
-        } catch (SQLException e) {
-            connection.rollback();
-            throw e;
-        } finally {
-            if (connection != null) {
-                connection.setAutoCommit(true);
-                // connection.close();
-            }
-        }
-        return result;
-    }*/
         Connection connection = null;
         connection= DbConnection.getInstance().getConnection();
 

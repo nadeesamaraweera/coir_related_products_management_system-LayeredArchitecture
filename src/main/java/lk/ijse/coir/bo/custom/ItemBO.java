@@ -1,5 +1,6 @@
 package lk.ijse.coir.bo.custom;
 
+import lk.ijse.coir.bo.SuperBO;
 import lk.ijse.coir.dto.ItemDto;
 import lk.ijse.coir.dto.RawMaterialDto;
 
@@ -7,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface ItemBO {
+public interface ItemBO  extends SuperBO {
 
      ArrayList<ItemDto> getAllItems() throws SQLException, ClassNotFoundException;
 

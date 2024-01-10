@@ -48,6 +48,12 @@ public class RawMaterialBOImpl implements RawMaterialBO {
 
     }
 
+    @Override
+    public String generateNewID() throws SQLException, ClassNotFoundException {
+        return rawMaterialDAO.generateNewID();
+    }
+
+
 
     @Override
     public boolean existRawMaterial(String id) throws SQLException, ClassNotFoundException {

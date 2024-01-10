@@ -17,9 +17,9 @@ import javafx.stage.Stage;
 import lk.ijse.coir.bo.custom.RawMaterialBO;
 import lk.ijse.coir.bo.custom.impl.RawMaterialBOImpl;
 import lk.ijse.coir.dto.CustomerDto;
+import lk.ijse.coir.dto.EmployeeDto;
 import lk.ijse.coir.dto.RawMaterialDto;
 import lk.ijse.coir.dto.tm.RawTm;
-import lk.ijse.coir.model.RawMaterialModel;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -169,12 +169,23 @@ private void loadAllMaterials() throws SQLException, ClassNotFoundException {
     @FXML
     void btnSaveOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
 
+        boolean isvalidate =validateRawMaterial();
+        if (isvalidate){
+            String id =txtId.getText();
+            String name =txtName.getText();
+            Double qty = Double.parseDouble(String.valueOf(txtQty.getText()));
+            BigDecimal unitprice =BigDecimal.valueOf(Long.parseLong(txtUnitprice.getText()));
+
+            var dto =new RawMaterialDto(id,name,qty,unitprice);
+        }
+
         RawMaterialDto rawMaterialDto = new RawMaterialDto(txtId.getText(), txtName.getText(),Double.parseDouble(String.valueOf(txtQty.getText())), BigDecimal.valueOf(Long.parseLong(txtUnitprice.getText())));
         boolean issave = rawMaterialBO.saveRawMaterial(rawMaterialDto);
         if (issave) {
             new Alert(Alert.AlertType.CONFIRMATION, "rawMaterial saved!").show();
             clearFields();
             initialize();
+            generateNextRawId();
         }
 
     }
@@ -221,27 +232,6 @@ private void loadAllMaterials() throws SQLException, ClassNotFoundException {
     }
 
 
-
-/*Double unitPrice = Double.parseDouble(txtUnitprice.getText());
-            String unitPriceString = String.format("%.2f", unitPrice);
-
-
-            boolean isMaterialpriceValidation = Pattern.matches("^[1-9]\\\\d{0,6}\\\\.\\\\d{2}$", unitPriceString);
-
-            if (!isMaterialpriceValidation) {
-
-                new Alert(Alert.AlertType.ERROR, "INVALID RAW MATERIAL UNIT PRICE").show();
-                txtUnitprice.setStyle("-fx-border-color: Red");
-
-                return false;
-            }
-            return true;
-        }*/
-
-
-
-
-
     @FXML
     void btnUpdateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         RawMaterialDto rawMaterialDto = new RawMaterialDto(txtId.getText(), txtName.getText(),Double.valueOf(txtQty.getText()),BigDecimal.valueOf(Long.parseLong(txtUnitprice.getText())));
@@ -259,5 +249,17 @@ private void loadAllMaterials() throws SQLException, ClassNotFoundException {
         txtUnitprice.setText("");
        
     }
+
+    private void generateNextRawId() {
+        try {
+            String rawID = rawMaterialBO.generateNewID();
+            txtId.setText(rawID);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
 

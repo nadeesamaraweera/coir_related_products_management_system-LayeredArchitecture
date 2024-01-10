@@ -119,11 +119,6 @@ public class MaterialStockFormController {
     @FXML
     private Label lblTotal;
 
-    /*private final GetOrderModel getOrderModel = new GetOrderModel();
-
-    private final RawMaterialModel rawMaterialModel = new RawMaterialModel();
-
-    private final SupplierModel supplierModel = new SupplierModel();*/
     ObservableList<SupplierDetailTm> obList1 = FXCollections.observableArrayList();
 
     RawMaterialBO rawMaterialBO = new RawMaterialBOImpl();
@@ -131,237 +126,6 @@ public class MaterialStockFormController {
 
     MaterialStockBO materialStockBO =new MaterialStockBOImpl();
 
-
-/*
-    public void initialize() throws ClassNotFoundException {
-        setCellValueFactory();
-        setDate();
-        loadSupplierIds();
-        loadRawMaterialIds();
-    }
-
-    private void setCellValueFactory() {
-        colRawId.setCellValueFactory(new PropertyValueFactory<>("rawMaterialId"));
-        colIRawName.setCellValueFactory(new PropertyValueFactory<>("materialName"));
-        colQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
-        colUnitPrice.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
-        colTotal.setCellValueFactory(new PropertyValueFactory<>("tot"));
-        colAction.setCellValueFactory(new PropertyValueFactory<>("btn"));
-    }
-
-    private void loadRawMaterialIds() throws ClassNotFoundException {
-        ObservableList<String> obList = FXCollections.observableArrayList();
-        try {
-            List<RawMaterialDto> rawList = rawMaterialBO.getAllMaterials();
-
-            for (RawMaterialDto rawMaterialDto : rawList) {
-                obList.add(rawMaterialDto.getRawMaterialId());
-            }
-
-            cmbRawId.setItems(obList);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private void loadSupplierIds() throws ClassNotFoundException {
-        ObservableList<String> obList = FXCollections.observableArrayList();
-        try {
-            List<SupplierDto> supList = supplierBO.getAllSuppliers();
-
-            for (SupplierDto dto : supList) {
-                obList.add(dto.getSupplierId());
-            }
-            cmbSupplierId.setItems(obList);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private void setDate() {
-        String date = String.valueOf(LocalDate.now());
-        lblOrderDate.setText(date);
-    }
-
-
-    @FXML
-    void btnAddToStockOnAction(ActionEvent event) {
-
-        String materialId = cmbRawId.getValue();
-        String materialName = lblName.getText();
-        int qty = Integer.parseInt(txtQty.getText());
-        double hand = Double.parseDouble(lblQtyOnStock.getText());
-        if (qty < hand) {
-            BigDecimal unitPrice = new BigDecimal(lblUnitPrice.getText());
-
-            double total = qty * unitPrice;
-            Button btn = new Button("remove");
-            btn.setCursor(Cursor.HAND);
-
-            btn.setOnAction((e) -> {
-                ButtonType yes = new ButtonType("yes", ButtonBar.ButtonData.OK_DONE);
-                ButtonType no = new ButtonType("no", ButtonBar.ButtonData.CANCEL_CLOSE);
-
-                Optional<ButtonType> type = new Alert(Alert.AlertType.INFORMATION, "Are you sure to remove?", yes, no).showAndWait();
-
-                if (type.orElse(no) == yes) {
-                    int index = tblStockCart.getSelectionModel().getSelectedIndex();
-                    obList1.remove(index);
-                    tblStockCart.refresh();
-
-                    calculateNetTotal();
-                }
-            });
-
-            for (int i = 0; i < tblStockCart.getItems().size(); i++) {
-                if (materialId.equals(colRawId.getCellData(i))) {
-                    qty += (int) colQty.getCellData(i);
-                    total = qty * unitPrice;
-
-                    obList1.get(i).setQty(qty);
-                    obList1.get(i).setTot(total);
-
-                    tblStockCart.refresh();
-                    calculateNetTotal();
-                    return;
-                }
-            }
-
-            obList1.add(new SupplierDetailTm(
-                    materialId,
-                    materialName,
-                    qty,
-                    unitPrice,
-                    total,
-                    btn
-            ));
-
-            tblStockCart.setItems(obList1);
-            calculateNetTotal();
-            txtQty.clear();
-        } else {
-            new Alert(Alert.AlertType.ERROR, "The stock haven't ").show();
-            txtQty.setStyle("-fx-border-color: Red");
-
-        }
-
-    }
-
-    private void calculateNetTotal() {
-        double total = 0;
-        for (int i = 0; i < tblStockCart.getItems().size(); i++) {
-            total += (double) colTotal.getCellData(i);
-        }
-
-        lblNetTotal.setText(String.valueOf(total));
-    }
-
-
-    @FXML
-    void btnBackOnAction(ActionEvent event) throws IOException {
-        Parent anchorPane = FXMLLoader.load(getClass().getResource("/view/dashboardForm.fxml"));
-        Stage stage = (Stage) root.getScene().getWindow();
-
-        stage.setScene(new Scene(anchorPane));
-        stage.setTitle("Dashboard");
-        stage.centerOnScreen();
-
-    }
-
-    @FXML
-    void btnMaterialStockOnAction(ActionEvent event) {
-        String supplierId =  cmbSupplierId.getValue();
-        String rawMaterialId =cmbRawId.getValue();
-        LocalDate date = LocalDate.parse(lblOrderDate.getText());
-
-        List<SupplierDetailTm> tmList = new ArrayList<>();
-
-        for (SupplierDetailTm materialCartTm : obList1) {
-            tmList.add(materialCartTm);
-        }
-
-        var getOrderDto = new GetOrderDto(
-
-                supplierId,
-                rawMaterialId,
-                date,
-                tmList
-        );
-
-        try {
-            boolean isSuccess = materialStockBO.getOrder();
-            if (isSuccess) {
-                new Alert(Alert.AlertType.CONFIRMATION, "order completed!").show();
-            }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        }
-    }
-
-    @FXML
-    void btnNewSupplierOnAction(ActionEvent event) throws IOException {
-        Parent anchorPane = FXMLLoader.load(getClass().getResource("/view/supplierForm.fxml"));
-        Scene scene = new Scene(anchorPane);
-
-        Stage stage = new Stage();
-        stage.setTitle("Supplier Manage");
-        stage.setScene(scene);
-        stage.centerOnScreen();
-        stage.show();
-
-
-    }
-
-    @FXML
-    void btnPrintOnAction(ActionEvent event) {
-        InputStream resource = this.getClass().getResourceAsStream("/reports/StockDetail.jrxml");
-        try {
-            JasperReport jasperReport = JasperCompileManager.compileReport(resource);
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, DbConnection.getInstance().getConnection());
-            JasperViewer.viewReport(jasperPrint, false);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    @FXML
-    void cmbSupplierOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        String supplierId =cmbSupplierId.getValue();
-        SupplierDto dto = supplierBO.searchSupplier(supplierId);
-
-        lblSupplierName.setText(dto.getSupplierName());
-
-
-    }
-
-
-    @FXML
-    void cmbRawIdOnAction(ActionEvent event) throws ClassNotFoundException {
-        String rawMaterialId =cmbRawId.getValue();
-
-        txtQty.requestFocus();
-
-        try {
-            RawMaterialDto dto = rawMaterialBO.searchRawMaterial(rawMaterialId);
-
-            lblName.setText(dto.getMaterialName());
-            lblUnitPrice.setText(String.valueOf(dto.getUnitPrice()));
-            lblQtyOnStock.setText(String.valueOf(dto.getQtyOnStock()));
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-
-    }
-
-
-    @FXML
-    void txtQtyOnAction(ActionEvent event) {
-        btnAddToStockOnAction(event);
-    }
-*/
 public void initialize() throws SQLException, ClassNotFoundException {
 
     tblStockCart.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("rawMaterialId"));
@@ -384,8 +148,6 @@ public void initialize() throws SQLException, ClassNotFoundException {
         return new ReadOnlyObjectWrapper<>(btnDelete);
     });
 
-    //orderId = generateNewOrderId();
-    //lblOrderId.setText("Order ID: " + orderId);
     lblOrderDate.setText(LocalDate.now().toString());
     btnstock.setDisable(true);
     txtSupplierName.setFocusTraversable(false);
@@ -490,16 +252,6 @@ public void initialize() throws SQLException, ClassNotFoundException {
         return materialStockBO.existSupplier(id);
     }
 
-   /* public String generateNewOrderId() {
-        try {
-            return placeOrderBO.generateOrderID();
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, "Failed to generate a new order id").show();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return "OID-001";
-    }*/
 
     private void loadAllSupplierIds() {
         try {
@@ -594,8 +346,7 @@ public void initialize() throws SQLException, ClassNotFoundException {
         } else {
             new Alert(Alert.AlertType.ERROR, "stock order has not been placed successfully").show();
         }
-       // orderId = generateNewOrderId();
-       // lblOrderId.setText("Order Id: " + orderId);
+
         cmbSupplierId.getSelectionModel().clearSelection();
         cmbRawId.getSelectionModel().clearSelection();
         tblStockCart.getItems().clear();

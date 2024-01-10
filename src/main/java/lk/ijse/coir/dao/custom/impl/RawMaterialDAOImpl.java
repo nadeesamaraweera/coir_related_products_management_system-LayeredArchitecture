@@ -75,5 +75,17 @@ public class RawMaterialDAOImpl implements RawMaterialDAO {
         }
         return  null;
     }
+
+    @Override
+    public String generateNewID() throws SQLException, ClassNotFoundException {
+        ResultSet rst = SQLUtil.execute("SELECT rawMaterial_id FROM raw_material ORDER BY rawMaterial_id DESC LIMIT 1");
+        if (rst.next()) {
+            String id = rst.getString("rawMaterial_id");
+            int newRawId = Integer.parseInt(id.replace("R00", "")) + 1;
+            return String.format("R%03d", newRawId);
+        } else {
+            return "R001";
+        }
+    }
 }
 

@@ -1,3 +1,4 @@
+/*
 package lk.ijse.coir.model;
 
 import lk.ijse.coir.db.DbConnection;
@@ -41,7 +42,8 @@ public class UserModel {
         return false;
     }
 
-
+*/
+/*
     public UserDto getEmail(String username) throws SQLException {
 
         String sql = "SELECT * FROM user WHERE user_name=?";
@@ -67,7 +69,8 @@ public class UserModel {
             throwables.printStackTrace();
         }
         return null;
-    }
+    }*//*
+
     public boolean updatePassword(String username, String text) throws SQLException {
 
         String sql = "UPDATE user SET password=? WHERE user_name=?";
@@ -81,4 +84,4 @@ public class UserModel {
         }
         return false;
     }
-}
+}*/
