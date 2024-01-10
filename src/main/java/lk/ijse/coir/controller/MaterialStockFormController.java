@@ -205,7 +205,7 @@ public void initialize() throws SQLException, ClassNotFoundException {
                 txtMaterialName.setText(rawMaterial.getMaterialName());
                 txtUnitPrice.setText(rawMaterial.getUnitPrice().setScale(2).toString());
 
-//                  txtQtyOnHand.setText(tblOrderDetails.getItems().stream().filter(detail-> detail.getCode().equals(item.getCode())).<Integer>map(detail-> item.getQtyOnHand() - detail.getQty()).findFirst().orElse(item.getQtyOnHand()) + "");
+//              txtQtyOnHand.setText(tblOrderDetails.getItems().stream().filter(detail-> detail.getCode().equals(item.getCode())).<Integer>map(detail-> item.getQtyOnHand() - detail.getQty()).findFirst().orElse(item.getQtyOnHand()) + "");
                 Optional<SupplierDetailTm> optSupplierDetail = tblStockCart.getItems().stream().filter(detail -> detail.getRawMaterialId().equals(newRawId)).findFirst();
                 txtQtyOnStock.setText((optSupplierDetail.isPresent() ? rawMaterial.getQtyOnStock() + optSupplierDetail.get().getQty() : rawMaterial.getQtyOnStock()) + "");
 
@@ -338,7 +338,7 @@ public void initialize() throws SQLException, ClassNotFoundException {
     }
 
     public void btnMaterialStockOnAction(ActionEvent actionEvent) {
-        boolean b = saveOrder( LocalDate.now(), cmbRawId.getValue(),
+        boolean b = saveOrder( LocalDate.now(),cmbSupplierId.getValue(),
                 tblStockCart.getItems().stream().map(tm -> new SupplierDetailDto( tm.getSupplierId(), tm.getRawMaterialId(),LocalDate.now(),tm.getUnitPrice(),tm.getQty())).collect(Collectors.toList()));
 
         if (b) {
@@ -354,7 +354,7 @@ public void initialize() throws SQLException, ClassNotFoundException {
         calculateTotal();
     }
 
-    public boolean saveOrder( LocalDate stockDate, String supplierId, List<SupplierDetailDto> supplierDetails) {
+    public boolean saveOrder( LocalDate stockDate, String supplierId,List<SupplierDetailDto> supplierDetails) {
         try {
             return materialStockBO.getOrder(stockDate,supplierId,supplierDetails);
         } catch (SQLException e) {
@@ -388,6 +388,8 @@ public void initialize() throws SQLException, ClassNotFoundException {
         SupplierDto dto = supplierBO.searchSupplier(supplierId);
 
         txtSupplierName.setText(dto.getSupplierName());
+
+
     }
 
 

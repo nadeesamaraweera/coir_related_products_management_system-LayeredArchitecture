@@ -14,6 +14,7 @@ public interface MaterialStockBO extends SuperBO {
 
     boolean getOrder(LocalDate stockDate, String supplierId, List<SupplierDetailDto> supplierDetail) throws SQLException, ClassNotFoundException;
 
+
     SupplierDto searchSupplier(String id) throws SQLException, ClassNotFoundException;
 
     RawMaterialDto searchRaw(String id) throws SQLException, ClassNotFoundException;

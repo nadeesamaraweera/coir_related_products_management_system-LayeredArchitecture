@@ -1,11 +1,10 @@
 package lk.ijse.coir.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lk.ijse.coir.dto.SupplierDetailDto;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 /*@NoArgsConstructor
 @AllArgsConstructor
@@ -37,7 +36,7 @@ public class Order {
         this.orderTotal = orderTotal;
     }
 
-    public Order() {
+    public Order(LocalDate stockDate, String supplierId, List<SupplierDetailDto> supplierDetail) {
     }
 
     public Order(String orderId, LocalDate orderDate, String customerId) {
