@@ -13,13 +13,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lk.ijse.coir.bo.custom.DeliveryBO;
+import lk.ijse.coir.bo.custom.EmployeeBO;
 import lk.ijse.coir.bo.custom.impl.DeliveryBOImpl;
+import lk.ijse.coir.bo.custom.impl.EmployeeBOImpl;
 import lk.ijse.coir.dto.CustomerDto;
 import lk.ijse.coir.dto.DeliveryDto;
 import lk.ijse.coir.dto.EmployeeDto;
 import lk.ijse.coir.dto.tm.DeliveryTm;
-import lk.ijse.coir.model.EmployeeModel;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -86,6 +86,8 @@ public class DeliveryFormController {
 
     DeliveryBO deliveryBO = new DeliveryBOImpl();
 
+    EmployeeBO employeeBO =new EmployeeBOImpl();
+
 
 
 
@@ -100,7 +102,7 @@ public class DeliveryFormController {
     private void loadAllEmployeeIds() {
         ObservableList<String> obList = FXCollections.observableArrayList();
         try {
-            List<EmployeeDto> empList = EmployeeModel.loadAllEmployees();
+            List<EmployeeDto> empList = employeeBO.getAllEmployees();
 
             for (EmployeeDto dto : empList) {
                 obList.add(dto.getEmployeeId());
@@ -108,13 +110,15 @@ public class DeliveryFormController {
             cmbEmployee.setItems(obList);
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    private void loadAllEmployeeEmails() {
+    private void loadAllEmployeeEmails() throws ClassNotFoundException {
         ObservableList<String> obList = FXCollections.observableArrayList();
         try {
-            List<EmployeeDto> empList = EmployeeModel.loadAllEmployees();
+            List<EmployeeDto> empList = employeeBO.getAllEmployees();
 
             for (EmployeeDto dto : empList) {
                 obList.add(dto.getEmail());

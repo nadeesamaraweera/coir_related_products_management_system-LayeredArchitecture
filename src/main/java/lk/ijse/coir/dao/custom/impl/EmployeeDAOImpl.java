@@ -79,7 +79,32 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         return  null;
     }
 
+    @Override
+    public int totalEmployeeCount() throws ClassNotFoundException {
+        String sql = "SELECT COUNT(*) FROM employee";
+        try {
+            ResultSet resultSet = SQLUtil.execute(sql);
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle or log the exception as needed
+        }
+        return 0;
 
+
+    }
+    @Override
+    public String generateNewID() throws SQLException, ClassNotFoundException {
+        ResultSet rst = SQLUtil.execute("SELECT employee_id FROM employee ORDER BY employee_id DESC LIMIT 1");
+        if (rst.next()) {
+            String id = rst.getString("employee_id");
+            int newCustomerId = Integer.parseInt(id.replace("E00", "")) + 1;
+            return String.format("E%03d", newCustomerId);
+        } else {
+            return "E001";
+        }
+    }
 
 
 }

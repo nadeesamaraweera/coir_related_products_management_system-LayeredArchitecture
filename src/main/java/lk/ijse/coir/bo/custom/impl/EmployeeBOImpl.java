@@ -30,7 +30,17 @@ public class EmployeeBOImpl implements EmployeeBO {
         return employeeDAO.update(new Employee(employeeDto.getEmployeeId(),employeeDto.getEmployeeName(),employeeDto.getEmail(),employeeDto.getTel(),employeeDto.getJobTitle(),employeeDto.getSalary(),employeeDto.getDate()));
 
 
-}
+    }
+
+    @Override
+    public int totalEmployeeCount() throws ClassNotFoundException, SQLException {
+        return employeeDAO.totalEmployeeCount();
+    }
+
+    @Override
+    public String generateNewID() throws SQLException, ClassNotFoundException {
+        return employeeDAO.generateNewID();
+    }
 
     @Override
     public boolean saveEmployee(EmployeeDto employeeDto) throws SQLException, ClassNotFoundException {

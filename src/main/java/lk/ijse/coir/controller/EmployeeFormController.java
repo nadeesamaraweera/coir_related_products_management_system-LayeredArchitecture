@@ -18,7 +18,6 @@ import lk.ijse.coir.bo.custom.impl.EmployeeBOImpl;
 import lk.ijse.coir.dto.CustomerDto;
 import lk.ijse.coir.dto.EmployeeDto;
 import lk.ijse.coir.dto.tm.EmployeeTm;
-import lk.ijse.coir.model.EmployeeModel;
 
 
 import java.io.IOException;
@@ -97,7 +96,6 @@ public class EmployeeFormController {
     }
 
     private void loadAllEmployees() {
-        var model = new EmployeeModel();
 
         ObservableList<EmployeeTm> obList = FXCollections.observableArrayList();
 
@@ -170,12 +168,25 @@ public class EmployeeFormController {
 
         @FXML
         void btnSaveOnAction (ActionEvent event) throws SQLException, ClassNotFoundException {
+        boolean isvalidate = validateEmployee();
+        if (isvalidate){
+            String id =txtId.getText();
+            String name =txtName.getText();
+            String email=txtEmail.getText();
+            String tel = txtTel.getText();
+            String job =txtjOB.getText();
+            double salary = Double.parseDouble(txtSalary.getText());
+            String date = txtDate.getText();
+
+            var dto = new EmployeeDto(id,name,email,tel,job,salary,date);
+        }
             EmployeeDto employeeDto = new EmployeeDto(txtId.getText(), txtName.getText(), txtEmail.getText(), txtTel.getText(),txtjOB.getText(),Double.valueOf(txtSalary.getText()),txtDate.getText());
             boolean issave = employeeBO.saveEmployee(employeeDto);
             if (issave) {
                 new Alert(Alert.AlertType.CONFIRMATION, "customer saved!").show();
                 clearFields();
                 initialize();
+                generateNextEmployeeId();
             }
         }
 
@@ -188,6 +199,9 @@ public class EmployeeFormController {
             new Alert(Alert.AlertType.CONFIRMATION, "employee updated!").show();
             clearFields();
             initialize();
+        }else {
+            new Alert(Alert.AlertType.ERROR, "employee not  updated!").show();
+
         }
     }
 
@@ -306,6 +320,16 @@ public class EmployeeFormController {
         txtDate.setText("");
 
 
+    }
+    private void generateNextEmployeeId() {
+        try {
+            String employeeID = employeeBO.generateNewID();
+            txtId.setText(employeeID);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

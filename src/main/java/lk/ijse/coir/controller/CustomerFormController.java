@@ -118,7 +118,7 @@ public class CustomerFormController {
                    new Alert(Alert.AlertType.CONFIRMATION, "customer saved!").show();
                    clearFields();
                    initialize();
-                //   generateNextCustomerId();
+                   generateNextCustomerId();
 
                }
            }

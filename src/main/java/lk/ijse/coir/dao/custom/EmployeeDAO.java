@@ -9,7 +9,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface EmployeeDAO extends CrudDAO<Employee> {
-   // boolean updateEmployee(Employee employee) throws SQLException, ClassNotFoundException;
+    int totalEmployeeCount() throws ClassNotFoundException;
+
+    String generateNewID() throws SQLException, ClassNotFoundException;
+    // boolean updateEmployee(Employee employee) throws SQLException, ClassNotFoundException;
     /*ArrayList<EmployeeDto> getAllEmployees() throws SQLException, ClassNotFoundException;
 
     boolean updateEmployee(EmployeeDto employeeDto) throws SQLException, ClassNotFoundException;

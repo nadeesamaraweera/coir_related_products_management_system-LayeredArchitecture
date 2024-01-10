@@ -18,7 +18,6 @@ import lk.ijse.coir.bo.custom.impl.EmployeeBOImpl;
 import lk.ijse.coir.bo.custom.impl.ItemBOImpl;
 import lk.ijse.coir.dao.custom.CustomerDAO;
 import lk.ijse.coir.dao.custom.ItemDAO;
-import lk.ijse.coir.model.EmployeeModel;
 import lk.ijse.coir.util.DateTimeUtil;
 import lk.ijse.coir.util.Navigation;
 
@@ -146,8 +145,10 @@ public class DashboardFormController implements Initializable {
         }
 
         try {
-            txtEmployeeCount.setText(EmployeeModel.totalEmployeeCount());
+            txtEmployeeCount.setText(String.valueOf(employeeBO.totalEmployeeCount()));
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
 

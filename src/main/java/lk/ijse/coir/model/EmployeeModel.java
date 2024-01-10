@@ -1,3 +1,4 @@
+/*
 package lk.ijse.coir.model;
 
 import lk.ijse.coir.db.DbConnection;
@@ -149,3 +150,4 @@ import java.util.List;
 
     }
 
+*/
