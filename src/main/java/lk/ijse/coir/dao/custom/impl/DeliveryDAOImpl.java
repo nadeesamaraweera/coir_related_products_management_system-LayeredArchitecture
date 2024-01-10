@@ -19,7 +19,7 @@ public class DeliveryDAOImpl implements DeliveryDAO {
         while (resultSet.next()) {
             Delivery delivery = new Delivery(
                     resultSet.getString("delivery_id"),
-                    resultSet.getString("order_name"),
+                    resultSet.getString("order_id"),
                     resultSet.getString("employee_id"),
                     resultSet.getString("location"),
                     resultSet.getString("delivery_status"),
@@ -82,6 +82,18 @@ public class DeliveryDAOImpl implements DeliveryDAO {
             return delivery;
         }
         return  null;
+    }
+
+    @Override
+    public String generateNewID() throws SQLException, ClassNotFoundException {
+        ResultSet rst = SQLUtil.execute("SELECT delivery_id FROM delivery ORDER BY delivery_id DESC LIMIT 1");
+        if (rst.next()) {
+            String id = rst.getString("delivery_id");
+            int newItemId = Integer.parseInt(id.replace("D00", "")) + 1;
+            return String.format("D%03d", newItemId);
+        } else {
+            return "D001";
+        }
     }
 
 }

@@ -167,21 +167,41 @@ public class ItemFormController {
     @FXML
     void btnSaveOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
 
+        boolean isvalidate =validateItem();
+
+        if (isvalidate){
+            String itemid =txtItemId.getText();
+            String itemName =txtItemName.getText();
+            BigDecimal unitprice=BigDecimal.valueOf(Long.parseLong(txtUnitPrice.getText()));
+            int qtyOnHand =Integer.parseInt(txtQtyOnHand.getText());
+            String rawMaterialId =cmbRawMaterialId.getValue();
+
+
+            var dto = new ItemDto(itemid,itemName,unitprice,qtyOnHand,rawMaterialId);
+        }
+
         ItemDto itemDto = new ItemDto(txtItemId.getText(), txtItemName.getText(),BigDecimal.valueOf(Long.parseLong(txtUnitPrice.getText())),Integer.parseInt(String.valueOf(txtQtyOnHand.getText())),cmbRawMaterialId.getValue());
         boolean issave = itemBO.saveItem(itemDto);
+        try {
         if (issave) {
             new Alert(Alert.AlertType.CONFIRMATION, "item saved!").show();
             clearFields();
             initialize();
+            generateNextItemId();
         }
-
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
+
 
     private boolean validateItem() {
 
-        String itemIdText = txtItemId.getText();
+        String itemId = txtItemId.getText();
 
-        boolean isItemIDValidation = Pattern.matches("[I][0-9]{3,}", itemIdText);
+        boolean isItemIDValidation = Pattern.matches("[I][0-9]{3,}", itemId);
 
         if (!isItemIDValidation) {
 
@@ -191,9 +211,9 @@ public class ItemFormController {
         }
 
 
-        String itemNameText = txtItemName.getText();
+        String itemName = txtItemName.getText();
 
-        boolean isItemNameValidation = Pattern.matches("[A-Za-z.]{3,}", itemNameText);
+        boolean isItemNameValidation = Pattern.matches("[A-Za-z.]{3,}", itemName);
 
         if (!isItemNameValidation) {
 
@@ -202,7 +222,7 @@ public class ItemFormController {
             return false;
         }
 
-       /* Double unitPrice = Double.parseDouble(txtUnitPrice.getText());
+       /*BigDecimal unitPrice = BigDecimal.valueOf(Double.parseDouble(txtUnitPrice.getText()));
         String unitPriceString = String.format("%.2f",unitPrice);
         boolean isUnitPriceValidation = Pattern.matches("[0-9].{3}", unitPriceString);
 
@@ -216,9 +236,9 @@ public class ItemFormController {
 
 
 
-        String qtyOnHandText = txtQtyOnHand.getText();
+        String qtyOnHand = String.valueOf(Integer.parseInt(txtQtyOnHand.getText()));
 
-        boolean isQtyOnHandValidation = Pattern.matches("[-+]?[0-9]*\\.?[0-9]+", qtyOnHandText);
+        boolean isQtyOnHandValidation = Pattern.matches("[-+]?[0-9]*\\.?[0-9]+", qtyOnHand);
 
         if (!isQtyOnHandValidation) {
 
@@ -238,10 +258,16 @@ public class ItemFormController {
     void btnUpdateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         ItemDto itemDto = new ItemDto(txtItemId.getText(),txtItemName.getText(), BigDecimal.valueOf(Long.parseLong(txtUnitPrice.getText())),Integer.parseInt(String.valueOf(txtQtyOnHand.getText())),cmbRawMaterialId.getValue());
         boolean isupdate = itemBO.updateItem(itemDto);
+        try {
         if (isupdate) {
             new Alert(Alert.AlertType.CONFIRMATION, "item updated!").show();
             clearFields();
             initialize();
+        }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
 
     }
@@ -294,6 +320,17 @@ public class ItemFormController {
     @FXML
     void cmbRawMaterialIdOnAction(ActionEvent event) {
 
+    }
+
+    private void generateNextItemId() {
+        try {
+            String customerID = itemBO.generateNewID();
+            txtItemId.setText(customerID);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

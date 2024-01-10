@@ -2,7 +2,6 @@ package lk.ijse.coir.dao.custom.impl;
 
 import lk.ijse.coir.dao.SQLUtil;
 import lk.ijse.coir.dao.custom.ItemDAO;
-import lk.ijse.coir.entity.Customer;
 import lk.ijse.coir.entity.Item;
 
 import java.sql.ResultSet;
@@ -84,19 +83,33 @@ public class ItemDAOImpl implements ItemDAO {
         return  null;
     }
 
-  /*  @Override
-    public static String to() throws SQLException, ClassNotFoundException {
-      //  Connection connection = DbConnection.getInstance().getConnection();
-
-        String sql = "SELECT COUNT(*) AS CustomerCount FROM customer";
-        ResultSet resultSet =SQLUtil.execute( "SELECT COUNT(*) AS CustomerCount FROM customer") ;
-
-
-        if (resultSet.next()) {
-            return resultSet.getString(1);
+    @Override
+    public int totalItemTypes() throws ClassNotFoundException {
+        String sql = "SELECT COUNT(*) FROM item";
+        try {
+            ResultSet resultSet = SQLUtil.execute(sql);
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle or log the exception as needed
         }
-        return null;
-    }*/
+        return 0;
+
+
+    }
+
+    @Override
+    public String generateNewID() throws SQLException, ClassNotFoundException {
+        ResultSet rst = SQLUtil.execute("SELECT item_id FROM item ORDER BY item_id DESC LIMIT 1");
+        if (rst.next()) {
+            String id = rst.getString("item_id");
+            int newItemId = Integer.parseInt(id.replace("I00", "")) + 1;
+            return String.format("I%03d", newItemId);
+        } else {
+            return "I001";
+        }
+    }
 }
 
 

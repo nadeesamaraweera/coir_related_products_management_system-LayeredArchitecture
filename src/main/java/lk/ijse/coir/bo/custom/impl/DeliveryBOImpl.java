@@ -20,7 +20,7 @@ public class DeliveryBOImpl implements  DeliveryBO {
         ArrayList<Delivery> deliveries = deliveryDAO.getAll();
         ArrayList<DeliveryDto> deliveryDtos = new ArrayList<>();
         for (Delivery delivery : deliveries) {
-            deliveryDtos.add(new DeliveryDto(delivery.getDeliveryId(), delivery.getOrderId(), delivery.getEmployeeId(), delivery.getDeliveryStatus(),delivery.getLocation(),delivery.getEmail()));
+            deliveryDtos.add(new DeliveryDto(delivery.getDeliveryId(), delivery.getOrderId(), delivery.getEmployeeId(),delivery.getLocation(),delivery.getDeliveryStatus(),delivery.getEmail()));
         }
         return deliveryDtos;
     }
@@ -30,6 +30,12 @@ public class DeliveryBOImpl implements  DeliveryBO {
         return deliveryDAO.update(new Delivery(deliveryDto.getDeliveryId(), deliveryDto.getOrderId(), deliveryDto.getEmployeeId(), deliveryDto.getLocation(),deliveryDto.getDeliveryStatus(),deliveryDto.getEmail()));
 
     }
+
+    @Override
+    public String generateNewID() throws SQLException, ClassNotFoundException {
+        return deliveryDAO.generateNewID();
+    }
+
 
     @Override
     public boolean saveDelivery(DeliveryDto deliveryDto) throws SQLException, ClassNotFoundException {
@@ -53,7 +59,7 @@ public class DeliveryBOImpl implements  DeliveryBO {
 
         Delivery delivery= deliveryDAO.search(id);
         if (delivery != null) {
-            return new DeliveryDto(delivery.getDeliveryId(),delivery.getOrderId(), delivery.getEmployeeId(),delivery.getDeliveryStatus(),delivery.getLocation(),delivery.getEmail());
+            return new DeliveryDto(delivery.getDeliveryId(),delivery.getOrderId(), delivery.getEmployeeId(),delivery.getLocation(),delivery.getDeliveryStatus(),delivery.getEmail());
 
         } else {
             return null;

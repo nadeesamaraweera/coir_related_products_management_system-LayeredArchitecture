@@ -18,7 +18,6 @@ import lk.ijse.coir.dto.CustomerDto;
 import lk.ijse.coir.dto.DeliveryDto;
 import lk.ijse.coir.dto.EmployeeDto;
 import lk.ijse.coir.dto.tm.DeliveryTm;
-import lk.ijse.coir.model.DeliveryModel;
 import lk.ijse.coir.model.EmployeeModel;
 
 import java.io.IOException;
@@ -90,7 +89,7 @@ public class DeliveryFormController {
 
 
 
-    public void initialize() {
+    public void initialize() throws ClassNotFoundException {
         setCellValueFactory();
         loadAllDelivery();
         loadAllEmployeeIds();
@@ -136,13 +135,13 @@ public class DeliveryFormController {
         colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
     }
 
-    private void loadAllDelivery() {
-        var model = new DeliveryModel();
+    private void loadAllDelivery() throws ClassNotFoundException {
+
 
         ObservableList<DeliveryTm> obList = FXCollections.observableArrayList();
 
         try {
-            List<DeliveryDto> dtoList = model.getAllDelivery();
+            List<DeliveryDto> dtoList = deliveryBO.getAllDeliverys();
 
             for(DeliveryDto dto : dtoList) {
                 obList.add(
@@ -187,21 +186,6 @@ public class DeliveryFormController {
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
-        /*String deliveryId = txtDeliveryId.getText();
-
-        var deliveryModel = new DeliveryModel();
-        try {
-            boolean isDeleted = deliveryModel.deleteDelivery(deliveryId);
-
-            if(isDeleted) {
-                tblDelivery.refresh();
-                new Alert(Alert.AlertType.CONFIRMATION, "delivery deleted!").show();
-                initialize();
-                clearFields();
-            }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        }*/
         String id = tblDelivery.getSelectionModel().getSelectedItem().getDeliveryId();
         try {
             if (existDelivery(id)) {
@@ -222,40 +206,29 @@ public class DeliveryFormController {
 
     @FXML
     void btnSaveOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-       /* String deliveryId = txtDeliveryId.getText();
-        String orderId = txtOrderId.getText();
-        String employeeId = cmbEmployee.getValue();
-        String location = txtLocation.getText();
-        String deliveryStatus = txtDeliveryStatus.getText();
-        String email = cmbEmail.getValue();
-
         boolean isValidate = validateDelivery();
-
         if (isValidate) {
-
+            String deliveryId =txtDeliveryId.getText();
+            String orderId = txtOrderId.getText();
+            String employeeId = cmbEmployee.getValue();
+            String location = txtLocation.getText();
+            String deliveryStatus = txtDeliveryStatus.getText();
+            String email = cmbEmail.getValue();
 
             var dto = new DeliveryDto(deliveryId, orderId, employeeId, location, deliveryStatus, email);
+        }
 
-            var model = new DeliveryModel();
-            try {
-                boolean isSaved = model.saveDelivery(dto);
-                if (isSaved) {
-                    new Alert(Alert.AlertType.CONFIRMATION, "delivery saved!").show();
-
-                    clearFields();
-                    initialize();
-                }
-            } catch (SQLException e) {
-                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-            }
-
-        }*/
         DeliveryDto deliveryDto= new DeliveryDto(txtDeliveryId.getText(),txtOrderId.getText(),cmbEmployee.getValue(), txtLocation.getText(),txtDeliveryStatus.getText(),cmbEmail.getValue());
         boolean issave = deliveryBO.saveDelivery(deliveryDto);
+        try{
         if (issave) {
             new Alert(Alert.AlertType.CONFIRMATION, "delivery saved!").show();
             clearFields();
             initialize();
+            generateNextDeliveryId();
+        }
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -316,52 +289,22 @@ public class DeliveryFormController {
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-       /* String deliveryId = txtDeliveryId.getText();
-        String orderId = txtOrderId.getText();
-        String employeeId = cmbEmployee.getValue();
-        String location = txtLocation.getText();
-        String deliveryStatus = txtDeliveryStatus.getText();
-        String email = cmbEmail.getValue();
-
-        var dto = new DeliveryDto(deliveryId, orderId, employeeId, location, deliveryStatus, email);
-
-        var model = new DeliveryModel();
-        try {
-            boolean isUpdated = model.updateDelivery(dto);
-            System.out.println(isUpdated);
-            if(isUpdated) {
-                new Alert(Alert.AlertType.CONFIRMATION, "Delivery updated!").show();
-                initialize();
-            }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();*/
-
         DeliveryDto deliveryDto = new DeliveryDto(txtDeliveryId.getText(), txtOrderId.getText(), cmbEmployee.getValue(), txtLocation.getText(),txtDeliveryStatus.getText(),cmbEmail.getValue());
         boolean isupdate = deliveryBO.updateDelivery(deliveryDto);
+        try {
         if (isupdate) {
             new Alert(Alert.AlertType.CONFIRMATION, "delivery updated!").show();
             clearFields();
             initialize();
         }
+    } catch (ClassNotFoundException e) {
+        throw new RuntimeException(e);
+    }
     }
 
 
     @FXML
     void txtDeliveryIdSearchOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-       /* String deliveryId = txtDeliveryId.getText();
-
-        var model = new DeliveryModel();
-        try {
-            DeliveryDto dto = model.searchDelivery(deliveryId);
-
-            if(dto != null) {
-                fillFields(dto);
-            } else {
-                new Alert(Alert.AlertType.INFORMATION, "customer not found!").show();
-            }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        }*/
         String deliveryId = txtDeliveryId.getText();
         DeliveryDto deliveryDto = deliveryBO.searchDelivery(deliveryId);
 
@@ -410,6 +353,16 @@ public class DeliveryFormController {
     @FXML
     void cmbEmailOnAction(ActionEvent event) {
 
+    }
+    private void generateNextDeliveryId() {
+        try {
+            String deliveryID = deliveryBO.generateNewID();
+            txtDeliveryId.setText(deliveryID);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

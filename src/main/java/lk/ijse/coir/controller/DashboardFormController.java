@@ -11,10 +11,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import lk.ijse.coir.bo.custom.CustomerBO;
+import lk.ijse.coir.bo.custom.EmployeeBO;
+import lk.ijse.coir.bo.custom.ItemBO;
 import lk.ijse.coir.bo.custom.impl.CustomerBOImpl;
+import lk.ijse.coir.bo.custom.impl.EmployeeBOImpl;
+import lk.ijse.coir.bo.custom.impl.ItemBOImpl;
 import lk.ijse.coir.dao.custom.CustomerDAO;
+import lk.ijse.coir.dao.custom.ItemDAO;
 import lk.ijse.coir.model.EmployeeModel;
-import lk.ijse.coir.model.ItemModel;
 import lk.ijse.coir.util.DateTimeUtil;
 import lk.ijse.coir.util.Navigation;
 
@@ -52,6 +56,10 @@ public class DashboardFormController implements Initializable {
 
 
     CustomerBO customerBO =new CustomerBOImpl();
+
+    ItemBO itemBO =new ItemBOImpl();
+
+    EmployeeBO employeeBO = new EmployeeBOImpl();
 
     @FXML
     void btnLogoutOnAction(ActionEvent event) throws IOException {
@@ -128,7 +136,11 @@ public class DashboardFormController implements Initializable {
         }
 
         try {
-            txtItemTypes.setText(ItemModel.totalItemTypes());
+            try {
+                txtItemTypes.setText(String.valueOf(itemBO.totalItemTypes()));
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

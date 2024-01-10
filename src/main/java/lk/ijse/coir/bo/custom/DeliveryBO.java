@@ -11,6 +11,8 @@ import java.util.ArrayList;
 public interface DeliveryBO extends SuperBO {
     ArrayList<DeliveryDto> getAllDeliverys() throws SQLException, ClassNotFoundException;
 
+    String generateNewID() throws SQLException, ClassNotFoundException;
+
     boolean saveDelivery(DeliveryDto deliveryDto) throws SQLException, ClassNotFoundException;
 
     boolean existDelivery(String id) throws SQLException, ClassNotFoundException;

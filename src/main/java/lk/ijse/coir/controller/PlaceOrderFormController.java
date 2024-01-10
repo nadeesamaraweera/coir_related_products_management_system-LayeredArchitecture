@@ -31,7 +31,6 @@ import lk.ijse.coir.dto.ItemDto;
 import lk.ijse.coir.dto.OrderDetailDto;
 
 import lk.ijse.coir.dto.tm.OrderDetailTM;
-import lk.ijse.coir.model.ItemModel;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;

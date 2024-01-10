@@ -1,3 +1,4 @@
+/*
 package lk.ijse.coir.model;
 
 import lk.ijse.coir.db.DbConnection;
@@ -74,7 +75,8 @@ public class DeliveryModel {
         return dto;
     }
 
-    public List<DeliveryDto> getAllDelivery() throws SQLException {
+   */
+/* public List<DeliveryDto> getAllDelivery() throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "SELECT * FROM delivery";
@@ -96,7 +98,8 @@ public class DeliveryModel {
             dtoList.add(dto);
         }
         return dtoList;
-    }
+    }*//*
+
 
     public boolean deleteDelivery(String deliveryId) throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
@@ -132,4 +135,4 @@ public class DeliveryModel {
 
 
 
-}
+}*/

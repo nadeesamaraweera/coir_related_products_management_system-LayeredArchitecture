@@ -112,20 +112,16 @@ public class CustomerFormController {
             }
 
             CustomerDto customerDto = new CustomerDto(txtId.getText(), txtName.getText(), txtAddress.getText(), txtTel.getText());
-           try {
-            boolean issave = customerBO.saveCustomer(customerDto);
-            if (issave) {
-                new Alert(Alert.AlertType.CONFIRMATION, "customer saved!").show();
-                clearFields();
-                initialize();
-                generateNextCustomerId();
-            }
-            } catch (SQLException e) {
-               new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-            } catch (ClassNotFoundException e) {
-              throw new RuntimeException(e);
-            }
-            }
+
+               boolean issave = customerBO.saveCustomer(customerDto);
+               if (issave) {
+                   new Alert(Alert.AlertType.CONFIRMATION, "customer saved!").show();
+                   clearFields();
+                   initialize();
+                //   generateNextCustomerId();
+
+               }
+           }
 
 
 
@@ -191,6 +187,9 @@ public class CustomerFormController {
                    new Alert(Alert.AlertType.CONFIRMATION, "customer updated!").show();
                    clearFields();
                    initialize();
+               }else {
+                   new Alert(Alert.AlertType.ERROR, "customer not updated!").show();
+
                }
            }
 

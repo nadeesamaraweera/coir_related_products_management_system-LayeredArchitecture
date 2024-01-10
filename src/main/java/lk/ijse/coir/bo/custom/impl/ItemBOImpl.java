@@ -43,6 +43,11 @@ public class ItemBOImpl implements ItemBO {
     }
 
     @Override
+    public String generateNewID() throws SQLException, ClassNotFoundException {
+        return itemDAO.generateNewID();
+    }
+
+    @Override
     public ItemDto searchItem(String id) throws SQLException, ClassNotFoundException {
         Item item = itemDAO.search(id);
         if (item != null) {
@@ -52,5 +57,9 @@ public class ItemBOImpl implements ItemBO {
             return null;
         }
 
+    }
+    @Override
+    public int totalItemTypes() throws ClassNotFoundException, SQLException {
+        return itemDAO.totalItemTypes();
     }
 }

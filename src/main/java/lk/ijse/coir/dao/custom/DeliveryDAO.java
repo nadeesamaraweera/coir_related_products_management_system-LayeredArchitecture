@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface DeliveryDAO extends CrudDAO<Delivery> {
+    String generateNewID() throws SQLException, ClassNotFoundException;
     /*oolean save(Customer customer) throws SQLException, ClassNotFoundException;
 
     ArrayList<Delivery> getAll() throws SQLException, ClassNotFoundException;

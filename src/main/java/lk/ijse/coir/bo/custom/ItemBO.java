@@ -17,6 +17,9 @@ public interface ItemBO {
 
      boolean existItem(String id) throws SQLException, ClassNotFoundException;
 
+     String generateNewID() throws SQLException, ClassNotFoundException;
 
      ItemDto searchItem(String id) throws SQLException, ClassNotFoundException;
+
+     int totalItemTypes() throws ClassNotFoundException, SQLException;
 }
