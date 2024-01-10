@@ -2,16 +2,10 @@ package lk.ijse.coir.dao.custom.impl;
 
 import lk.ijse.coir.dao.SQLUtil;
 import lk.ijse.coir.dao.custom.SupplierDetailDAO;
-import lk.ijse.coir.dto.tm.SupplierDetailTm;
-import lk.ijse.coir.entity.OrderDetail;
 import lk.ijse.coir.entity.SupplierDetail;
 
-import java.sql.Date;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 public class SupplierDetailDAOImpl implements SupplierDetailDAO {
     @Override
@@ -19,15 +13,6 @@ public class SupplierDetailDAOImpl implements SupplierDetailDAO {
         return null;
     }
 
-    /*@Override
-    public boolean save(SupplierDetail entity) throws SQLException, ClassNotFoundException {
-        return SQLUtil.execute("INSERT INTO supplier_detail VALUES(?, ?, ? ,? ,?)",
-                entity.getSupplierId(),
-                entity.getRawMaterialId(),
-                entity.getDate(),
-                entity.getUnitPrice(),
-                entity.getQtyOnStock());
-    }*/
 
     @Override
     public boolean save(SupplierDetail entity) throws SQLException, ClassNotFoundException {

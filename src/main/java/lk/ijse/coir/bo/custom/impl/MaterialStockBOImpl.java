@@ -1,3 +1,4 @@
+
 package lk.ijse.coir.bo.custom.impl;
 
 import lk.ijse.coir.bo.custom.MaterialStockBO;
@@ -23,29 +24,10 @@ public class MaterialStockBOImpl implements MaterialStockBO {
 
     @Override
     public boolean getOrder(LocalDate stockDate, String supplierId, List<SupplierDetailDto> supplierDetail) throws SQLException, ClassNotFoundException {
+
         Connection connection = null;
         connection= DbConnection.getInstance().getConnection();
-
-        //Check order id already exist or not
-
-        boolean b1 = supplierDAO.exist(supplierId);
-        /*if order id already exist*/
-        if (b1) {
-            return false;
-        }
-
         connection.setAutoCommit(false);
-
-        //Save the Order to the order table
-        boolean b2 = supplierDetailsDAO.save(new SupplierDetail(stockDate,supplierId,supplierDetail));
-
-        if (!b2) {
-            connection.rollback();
-            connection.setAutoCommit(true);
-            return false;
-        }
-
-
         for (SupplierDetailDto detail : supplierDetail) {
             boolean b3 = supplierDetailsDAO.save(new SupplierDetail(detail.getSupplierId(),detail.getRawMaterialId(),detail.getDate(),detail.getUnitPrice(),detail.getQtyOnStock()));
             if (!b3) {

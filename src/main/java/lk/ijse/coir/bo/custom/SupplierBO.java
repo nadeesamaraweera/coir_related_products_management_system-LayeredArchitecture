@@ -19,5 +19,7 @@ public interface SupplierBO extends SuperBO {
 
     void deleteSupplier(String id) throws SQLException, ClassNotFoundException;
 
+    String generateNewID() throws SQLException, ClassNotFoundException;
+
     SupplierDto searchSupplier(String id) throws SQLException, ClassNotFoundException;
 }

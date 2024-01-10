@@ -7,6 +7,7 @@ import lk.ijse.coir.entity.SupplierDetail;
 import java.sql.SQLException;
 
 public interface SupplierDetailDAO extends CrudDAO<SupplierDetail> {
-    String generateID() throws SQLException, ClassNotFoundException;
 
+
+    String generateID() throws SQLException, ClassNotFoundException;
 }

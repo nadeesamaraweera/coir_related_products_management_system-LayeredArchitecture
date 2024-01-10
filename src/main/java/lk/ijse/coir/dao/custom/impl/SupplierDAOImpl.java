@@ -79,4 +79,16 @@ public class SupplierDAOImpl implements SupplierDAO {
         return  null;
     }
 
+    @Override
+    public String generateNewID() throws SQLException, ClassNotFoundException {
+        ResultSet rst = SQLUtil.execute("SELECT supplier_id FROM supplier ORDER BY supplier_id DESC LIMIT 1");
+        if (rst.next()) {
+            String id = rst.getString("supplier_id");
+            int newSupplierId = Integer.parseInt(id.replace("S00", "")) + 1;
+            return String.format("S%03d", newSupplierId);
+        } else {
+            return "S001";
+        }
+    }
+
 }

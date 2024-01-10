@@ -254,11 +254,6 @@ public class ItemFormController {
 
         return  true;
     }
-
-
-
-
-
     @FXML
     void btnUpdateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         ItemDto itemDto = new ItemDto(txtItemId.getText(),txtItemName.getText(), BigDecimal.valueOf(Long.parseLong(txtUnitPrice.getText())),Integer.parseInt(String.valueOf(txtQtyOnHand.getText())),cmbRawMaterialId.getValue());
@@ -276,7 +271,7 @@ public class ItemFormController {
         }
 
     }
-    boolean existItemId(String id) throws SQLException, ClassNotFoundException {
+    boolean existItem(String id) throws SQLException, ClassNotFoundException {
         return itemBO.existItem(id);
 
     }

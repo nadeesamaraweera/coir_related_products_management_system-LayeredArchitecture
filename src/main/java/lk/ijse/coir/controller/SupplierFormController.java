@@ -98,12 +98,24 @@ public class SupplierFormController {
 
     @FXML
     void btnSaveOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        boolean isvalidate =validateSupplier();
+        if(isvalidate){
+            String id =txtId.getText();
+            String name =txtName.getText();
+            String address =txtAddress.getText();
+            String tel =txtTel.getText();
+
+            var dto =new  SupplierDto(id,name,address,tel);
+        }
+
         SupplierDto supplierDto = new SupplierDto(txtId.getText(), txtName.getText(), txtAddress.getText(), txtTel.getText());
         boolean issave = supplierBO.saveSupplier(supplierDto);
         if (issave) {
             new Alert(Alert.AlertType.CONFIRMATION, "supplier saved!").show();
             clearFields();
             initialize();
+            generateNextSupplierId();
+
 
 
         }
@@ -286,6 +298,17 @@ public class SupplierFormController {
         txtName.setText("");
         txtAddress.setText("");
         txtTel.setText("");
+    }
+
+    private void generateNextSupplierId() {
+        try {
+            String supplierID = supplierBO.generateNewID();
+            txtId.setText(supplierID);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
 
