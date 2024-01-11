@@ -96,7 +96,7 @@ public class CustomerDAOImpl implements CustomerDAO {
         ResultSet rst = SQLUtil.execute("SELECT customer_id FROM customer ORDER BY customer_id DESC LIMIT 1");
         if (rst.next()) {
             String id = rst.getString("customer_id");
-            int newCustomerId = Integer.parseInt(id.replace("C00", "")) + 1;
+            int newCustomerId = Integer.parseInt(id.replace("C00","")) + 1;
             return String.format("C%03d", newCustomerId);
         } else {
             return "C001";

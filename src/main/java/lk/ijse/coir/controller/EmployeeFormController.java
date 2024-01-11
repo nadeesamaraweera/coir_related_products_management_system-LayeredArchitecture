@@ -243,7 +243,7 @@ public class EmployeeFormController {
         }
 
 
-        String dateText = txtDate.getText();
+      /* String dateText = txtDate.getText();
 
         boolean isEmployeedateValidation = Pattern.matches("\\d{1,2}\\/\\d{1,2}\\/\\d{2,4}", dateText);
 
@@ -251,8 +251,8 @@ public class EmployeeFormController {
 
             new Alert(Alert.AlertType.ERROR, "INVALID DATE").show();
             txtDate.setStyle("-fx-border-color: Red");
-            return false;
-        }
+            retu*//*rn false;
+        }*/
 
         Double salaryText = Double.valueOf(txtDate.getText());
         String salaryTextString = String.format("%.2f",salaryText);

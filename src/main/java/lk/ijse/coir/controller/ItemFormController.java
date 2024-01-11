@@ -271,7 +271,7 @@ public class ItemFormController {
         }
 
     }
-    boolean existItem(String id) throws SQLException, ClassNotFoundException {
+    boolean exist(String id) throws SQLException, ClassNotFoundException {
         return itemBO.existItem(id);
 
     }

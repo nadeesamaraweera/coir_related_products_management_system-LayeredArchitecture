@@ -83,7 +83,7 @@ public class DashboardFormController implements Initializable {
 
     @FXML
     void btnhomeOnAction(ActionEvent event) throws IOException {
-        switchPaging(pagingPane, "homePageForm.fxml", "Home Form");
+        switchPaging(pagingPane, "dashFormForm.fxml", "Home Form");
     }
 
     @FXML

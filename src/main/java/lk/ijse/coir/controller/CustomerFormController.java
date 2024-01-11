@@ -119,6 +119,9 @@ public class CustomerFormController {
             clearFields();
             initialize();
             generateNextCustomerId();
+
+        }else {
+            new Alert(Alert.AlertType.ERROR, "invalid").show();
         }
     }
 

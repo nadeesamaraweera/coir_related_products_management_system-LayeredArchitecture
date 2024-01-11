@@ -125,9 +125,9 @@ public class SupplierFormController {
 
         String idText = txtId.getText();
 
-        boolean isCustomerIdValidation = Pattern.matches("[S][0-9]{3,}", idText);
+        boolean isSupplierIdValidation = Pattern.matches("[S][0-9]{3,}", idText);
 
-        if (!isCustomerIdValidation) {
+        if (!isSupplierIdValidation) {
 
 
             new Alert(Alert.AlertType.ERROR, "INVALID SUPPLIER ID").show();
@@ -138,9 +138,9 @@ public class SupplierFormController {
 
         String nameText = txtName.getText();
 
-        boolean isCustomerNameValidation = Pattern.matches("[A-Za-z.]{3,}", nameText);
+        boolean isSupplierNameValidation = Pattern.matches("[A-Za-z.]{3,}", nameText);
 
-        if (!isCustomerNameValidation) {
+        if (!isSupplierNameValidation) {
 
             new Alert(Alert.AlertType.ERROR, "INVALID SUPPLIER NAME").show();
             txtName.setStyle("-fx-border-color: Red");
@@ -149,9 +149,9 @@ public class SupplierFormController {
 
         String addressText = txtAddress.getText();
 
-        boolean isCustomerAddressValidation = Pattern.matches("[A-Za-z0-9/.\\s]{3,}", addressText);
+        boolean isSupplierAddressValidation = Pattern.matches("[A-Za-z0-9/.\\s]{3,}", addressText);
 
-        if (!isCustomerAddressValidation) {
+        if (!isSupplierAddressValidation) {
 
             new Alert(Alert.AlertType.ERROR, "INVALID SUPPLIER ADDRESS").show();
             txtAddress.setStyle("-fx-border-color: Red");
@@ -161,9 +161,9 @@ public class SupplierFormController {
 
         String telText = txtTel.getText();
 
-        boolean isCustomerTelValidation = Pattern.matches("[0-9]{10}", telText);
+        boolean isSupplierTelValidation = Pattern.matches("[0-9]{10}", telText);
 
-        if (!isCustomerTelValidation) {
+        if (!isSupplierTelValidation) {
 
             new Alert(Alert.AlertType.ERROR, "INVALID SUPPLIER TEL").show();
             txtTel.setStyle("-fx-border-color: Red");
@@ -176,24 +176,6 @@ public class SupplierFormController {
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        /*String supplierId = txtId.getText();
-        String supplierName = txtName.getText();
-        String address = txtAddress.getText();
-        String tel = txtTel.getText();
-
-        var dto = new SupplierDto(supplierId,supplierName, address, tel);
-
-        var model = new SupplierModel();
-        try {
-            boolean isUpdated = model.updateSupplier(dto);
-            System.out.println(isUpdated);
-            if (isUpdated) {
-                new Alert(Alert.AlertType.CONFIRMATION, "supplier updated!").show();
-                initialize();
-            }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        }*/
 
         SupplierDto supplierDto = new SupplierDto(txtId.getText(), txtName.getText(), txtAddress.getText(), txtTel.getText());
         boolean isupdate = supplierBO.updateSupplier(supplierDto);
@@ -206,20 +188,6 @@ public class SupplierFormController {
 
     @FXML
     void txtSearchOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-       /* String supplierId = txtId.getText();
-
-        var model = new SupplierModel();
-        try {
-            SupplierDto dto = model.searchSupplier(supplierId);
-
-            if (dto != null) {
-                fillFields(dto);
-            } else {
-                new Alert(Alert.AlertType.INFORMATION, "supplier not found!").show();
-            }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        }*/
 
         String supplierId = txtId.getText();
         SupplierDto supplierDto = supplierBO.searchSupplier(supplierId);
@@ -246,20 +214,7 @@ public class SupplierFormController {
     }
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
-       /* String supplierId = txtId.getText();
 
-        var supplierModel = new SupplierModel();
-        try {
-            boolean isDeleted = supplierModel.deleteSupplier(supplierId);
-
-            if (isDeleted) {
-                tblSupplier.refresh();
-                new Alert(Alert.AlertType.CONFIRMATION, "supplier deleted!").show();
-                initialize();
-            }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        }*/
         String id = tblSupplier.getSelectionModel().getSelectedItem().getSupplierId();
         try {
             if (existSupplier(id)) {
