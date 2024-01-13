@@ -124,12 +124,12 @@
             <Font size="32.0" />
          </font>
       </Label>
-      <Label fx:id="lblOrderId" alignment="CENTER_RIGHT" layoutX="18.0" layoutY="69.0" prefHeight="34.0" prefWidth="182.0" text="ORDER ID : OD001">
+      <Label fx:id="lblOrderId" alignment="CENTER_RIGHT" layoutX="11.0" layoutY="69.0" prefHeight="34.0" prefWidth="182.0" text="ORDER ID : OD001">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <Label fx:id="lblOrderDate" alignment="CENTER_RIGHT" layoutX="609.0" layoutY="78.0" prefHeight="24.0" prefWidth="152.0" text="2021-10-11">
+      <Label fx:id="lblOrderDate" alignment="CENTER_RIGHT" layoutX="659.0" layoutY="65.0" prefHeight="24.0" prefWidth="152.0" text="2021-10-11">
          <font>
             <Font size="22.0" />
          </font>

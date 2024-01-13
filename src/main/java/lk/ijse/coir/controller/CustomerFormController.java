@@ -112,17 +112,19 @@ public class CustomerFormController {
         }
 
         CustomerDto customerDto = new CustomerDto(txtId.getText(), txtName.getText(), txtAddress.getText(), txtTel.getText());
+         boolean isValidate = validateCustomer();
+         if(isValidate) {
+             boolean issave = customerBO.saveCustomer(customerDto);
+             if (issave) {
+                 new Alert(Alert.AlertType.CONFIRMATION, "customer saved!").show();
+                 clearFields();
+                 initialize();
+                 generateNextCustomerId();
 
-        boolean issave = customerBO.saveCustomer(customerDto);
-        if (issave) {
-            new Alert(Alert.AlertType.CONFIRMATION, "customer saved!").show();
-            clearFields();
-            initialize();
-            generateNextCustomerId();
-
-        }else {
-            new Alert(Alert.AlertType.ERROR, "invalid").show();
-        }
+             } else {
+                 new Alert(Alert.AlertType.ERROR, "invalid").show();
+             }
+         }
     }
 
 
