@@ -10,8 +10,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class CustomerBOImpl implements CustomerBO {
-
-
     CustomerDAO customerDAO =
             (CustomerDAO) DAOFactory.getDaoFactory().
                     getDAO(DAOFactory.DAOTypes.CUSTOMER);

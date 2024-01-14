@@ -1,4 +1,6 @@
 package lk.ijse.coir.dao.custom;
 
-public interface QuaryDAO  {
+import lk.ijse.coir.dao.CrudDAO;
+
+public interface QuaryDAO {
 }
